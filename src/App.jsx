@@ -84,6 +84,7 @@ export function App() {
               <ScrapbookBook 
                 cardData={cardData} 
                 onBackToCard={() => setStage('card')} 
+                onRestart={() => setStage('envelope')}
               />
             </motion.div>
           )}
