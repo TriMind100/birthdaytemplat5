@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Heart, Sparkles, Flame, Gift } from 'lucide-react';
+import { BearBadgeSticker, QuoteSticker, BowSticker, CherrySticker, GhostBestiesSticker } from './Stickers';
 
 export const FinalSurprise = ({ finalData, recipient }) => {
   const [isEnvelopeOpen, setIsEnvelopeOpen] = useState(false);
@@ -85,6 +86,10 @@ export const FinalSurprise = ({ finalData, recipient }) => {
             <h2 className="font-handwriting text-4xl xs:text-5xl sm:text-6xl font-bold text-[#3D342F] break-words">
               Happy Birthday, {recipient.name} ♡
             </h2>
+
+            <div className="flex items-center justify-center gap-2">
+              <QuoteSticker text="always ♡ forever 💖" color="bg-[#FFF0F3]" textColor="text-[#C9184A]" className="text-xs" />
+            </div>
 
             <p className="font-handwriting text-xl xs:text-2xl sm:text-3xl text-[#52463F] leading-relaxed italic max-w-lg mx-auto">
               "{finalData.message}"
