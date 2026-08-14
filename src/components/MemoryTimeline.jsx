@@ -17,19 +17,14 @@ export const MemoryTimeline = ({ memories }) => {
       </div>
 
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-12 px-2">
-        <span className="font-cursive text-xl sm:text-2xl text-[#D98888]">our storybook ♡</span>
-        <h2 className="font-handwriting text-3xl sm:text-5xl font-bold text-[#3D342F] mt-1 flex items-center justify-center gap-2">
-          little moments, big memories ♡
+      <div className="text-center mb-4 sm:mb-10 px-1 sm:px-2">
+        <h2 className="font-handwriting text-2xl xs:text-3xl sm:text-5xl font-bold text-[#FF4D79] mt-1 flex items-center justify-center gap-1.5 sm:gap-2">
+          Little Moments, Big Memories 🌸💖
         </h2>
-        <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
-          <QuoteSticker text="better together 💖" color="bg-[#FFF0F3]" textColor="text-[#C9184A]" className="text-xs" />
-          <QuoteSticker text="my happy place 🌸" color="bg-[#FFFDF9]" textColor="text-[#3D342F]" className="text-xs" />
-        </div>
       </div>
 
       {/* Timeline Tabs Nav */}
-      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-10 px-1">
+      <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-3 mb-4 sm:mb-10 px-1">
         {memories.map((m, idx) => {
           const isActive = m.id === activeMemoryId;
           return (
@@ -38,9 +33,9 @@ export const MemoryTimeline = ({ memories }) => {
               onClick={() => setActiveMemoryId(m.id)}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-full font-handwriting text-base sm:text-xl transition-all duration-300 flex items-center gap-1.5 sm:gap-2 cursor-pointer border ${
+              className={`px-3 py-1.5 xs:px-4 xs:py-2 sm:px-6 sm:py-2.5 rounded-full font-handwriting text-base xs:text-lg sm:text-2xl transition-all duration-300 flex items-center gap-1.5 sm:gap-2 cursor-pointer border-2 ${
                 isActive
-                  ? 'bg-[#D98888] text-white border-[#D98888] shadow-md'
+                  ? 'bg-[#FF4D79] text-white border-[#FF4D79] shadow-md'
                   : 'bg-[#FAF6EF] text-[#52463F] border-[#E8DCCB] hover:bg-[#F3ECE1]'
               }`}
             >
@@ -60,7 +55,7 @@ export const MemoryTimeline = ({ memories }) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.4 }}
-            className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center bg-[#FAF6EF] p-4 xs:p-6 sm:p-10 rounded-2xl border border-[#E8DCCB] shadow-xl relative"
+            className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center py-2 relative"
           >
             {/* Washi Tape Header */}
             <div className="washi-tape-pink absolute -top-3 left-4 sm:left-8 w-16 sm:w-24 h-4 sm:h-5 rotate-[-2deg]" />
@@ -68,21 +63,16 @@ export const MemoryTimeline = ({ memories }) => {
 
             {/* Left Column: Story Note */}
             <div className="md:col-span-7 space-y-3 sm:space-y-4 pt-2 sm:pt-0">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="bg-[#FFF0F0] text-[#D98888] px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full font-marker text-xs border border-[#F3C5C5]">
-                  Chapter: {activeMemory.tag}
-                </span>
-                <span className="font-marker text-xs text-[#8C7A6B]">
-                  • {activeMemory.date}
-                </span>
+              <div className="flex items-center gap-2 text-[#8C7A6B] font-marker text-sm">
+                <span>✨ {activeMemory.date}</span>
               </div>
 
-              <h3 className="font-handwriting text-2xl sm:text-4xl text-[#3D342F] font-bold leading-tight">
-                {activeMemory.title}
+              <h3 className="font-handwriting text-3xl sm:text-4xl text-[#3D342F] font-bold leading-tight">
+                {activeMemory.title} 💌
               </h3>
 
               {/* Quote Block */}
-              <div className="torn-paper-note p-3 sm:p-4 rounded-lg my-1 sm:my-2 border-l-4 border-l-[#D98888]">
+              <div className="torn-paper-note p-3.5 sm:p-4 rounded-xl my-2 border-l-4 border-l-[#FF4D79] bg-white/70">
                 <p className="font-handwriting text-xl sm:text-2xl text-[#52463F] italic leading-relaxed">
                   "{activeMemory.quote}"
                 </p>
