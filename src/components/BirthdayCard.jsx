@@ -4,20 +4,20 @@ import { Sparkles, ArrowRight, Heart } from 'lucide-react';
 
 export const BirthdayCard = ({ onExplore, recipient }) => {
   return (
-    <div className="min-h-[90vh] flex flex-col items-center justify-center p-4 sm:p-6 z-10">
+    <div className="min-h-[85vh] sm:min-h-[90vh] flex flex-col items-center justify-center p-3 xs:p-4 sm:p-6 z-10">
       
       {/* Main Physical Handmade Card Container */}
       <motion.div
         initial={{ opacity: 0, scale: 0.92, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative w-full max-w-lg bg-[#FAF6EF] rounded-2xl p-8 sm:p-12 shadow-2xl border-4 border-[#FFFDF9] outline outline-1 outline-[#E8DCCB] relative overflow-hidden"
+        className="relative w-full max-w-lg bg-[#FAF6EF] rounded-2xl p-5 xs:p-6 sm:p-12 shadow-2xl border-2 sm:border-4 border-[#FFFDF9] outline outline-1 outline-[#E8DCCB] overflow-hidden"
       >
         {/* Pink Gingham Bow in Top Left Corner */}
-        <div className="absolute top-4 left-4 z-20">
-          <div className="relative w-12 h-10 flex items-center justify-center">
+        <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20">
+          <div className="relative w-10 h-8 sm:w-12 sm:h-10 flex items-center justify-center">
             {/* Bow graphic SVG */}
-            <svg width="48" height="40" viewBox="0 0 60 50" fill="none">
+            <svg width="40" height="34" viewBox="0 0 60 50" fill="none">
               <path d="M15,25 C-5,10 0,35 25,25 C0,15 -5,40 15,25 Z" fill="#F3C5C5" stroke="#D98888" strokeWidth="2" />
               <path d="M45,25 C65,10 60,35 35,25 C60,15 65,40 45,25 Z" fill="#F3C5C5" stroke="#D98888" strokeWidth="2" />
               <circle cx="30" cy="25" r="6" fill="#D98888" />
@@ -27,11 +27,11 @@ export const BirthdayCard = ({ onExplore, recipient }) => {
         </div>
 
         {/* Top Right Tape & Doodles */}
-        <div className="washi-tape-pink absolute top-4 right-6 w-20 h-5 rotate-[4deg]" />
+        <div className="washi-tape-pink absolute top-3 right-4 sm:top-4 sm:right-6 w-16 sm:w-20 h-4 sm:h-5 rotate-[4deg]" />
         
         {/* Decorative Pressed Baby's Breath / Flower Stem Illustration */}
-        <div className="absolute top-12 right-4 opacity-40 pointer-events-none">
-          <svg width="60" height="90" viewBox="0 0 60 90" fill="none" stroke="#7C9082" strokeWidth="1.2">
+        <div className="absolute top-10 sm:top-12 right-3 sm:right-4 opacity-40 pointer-events-none hidden xs:block">
+          <svg width="50" height="75" viewBox="0 0 60 90" fill="none" stroke="#7C9082" strokeWidth="1.2">
             <path d="M30,90 Q25,50 35,10" />
             <circle cx="35" cy="10" r="2.5" fill="#FAF6EF" stroke="#D98888" />
             <circle cx="20" cy="30" r="2.5" fill="#FAF6EF" stroke="#D98888" />
@@ -41,27 +41,27 @@ export const BirthdayCard = ({ onExplore, recipient }) => {
         </div>
 
         {/* Card Main Header Content Layer */}
-        <div className="relative z-10 flex flex-col items-center text-center space-y-6 pt-4">
+        <div className="relative z-10 flex flex-col items-center text-center space-y-4 sm:space-y-6 pt-3 sm:pt-4">
           
           {/* Torn Paper Header 1 */}
           <motion.div
             initial={{ rotate: -2 }}
             animate={{ rotate: [-2, -1, -2] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="torn-paper-note px-6 py-2 rounded-md shadow-sm border border-[#E8DCCB] inline-block"
+            className="torn-paper-note px-4 sm:px-6 py-1.5 sm:py-2 rounded-md shadow-sm border border-[#E8DCCB] inline-block"
           >
-            <span className="font-cursive text-3xl sm:text-4xl text-[#D98888]">
+            <span className="font-cursive text-2xl sm:text-4xl text-[#D98888]">
               happy ♡
             </span>
           </motion.div>
 
           {/* Main Headline (Torn Paper Banner 2) */}
-          <div className="relative inline-block my-2">
-            <h1 className="font-handwriting text-5xl sm:text-7xl font-bold text-[#3D342F] tracking-wide leading-tight drop-shadow-sm">
+          <div className="relative inline-block my-1 sm:my-2">
+            <h1 className="font-handwriting text-4xl xs:text-5xl sm:text-7xl font-bold text-[#3D342F] tracking-wide leading-tight drop-shadow-sm">
               Birthday
             </h1>
             {/* Doodled Underline */}
-            <svg className="w-full h-4 text-[#D98888]/60 mt-1" viewBox="0 0 200 20" fill="none">
+            <svg className="w-full h-3 sm:h-4 text-[#D98888]/60 mt-1" viewBox="0 0 200 20" fill="none">
               <path d="M5,12 Q50,2 100,12 T195,10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
             </svg>
           </div>
@@ -71,28 +71,28 @@ export const BirthdayCard = ({ onExplore, recipient }) => {
             initial={{ rotate: 2 }}
             animate={{ rotate: [2, 3, 2] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-            className="bg-[#FFF0F0] px-6 py-2 rounded-md shadow-sm border border-[#F3C5C5] inline-block"
+            className="bg-[#FFF0F0] px-4 sm:px-6 py-1.5 sm:py-2 rounded-md shadow-sm border border-[#F3C5C5] inline-block"
           >
-            <p className="font-handwriting text-2xl sm:text-3xl text-[#52463F]">
+            <p className="font-handwriting text-xl sm:text-3xl text-[#52463F]">
               to my {recipient.title || "favorite human"}
             </p>
           </motion.div>
 
           {/* Polaroid Snippet Thumbnail */}
-          <div className="polaroid-frame my-4 rotate-[-3deg] transform hover:rotate-0 transition-transform duration-300 w-44 sm:w-52">
-            <div className="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-4" />
+          <div className="polaroid-frame my-2 sm:my-4 rotate-[-3deg] transform hover:rotate-0 transition-transform duration-300 w-36 xs:w-44 sm:w-52">
+            <div className="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-12 sm:w-16 h-3.5 sm:h-4" />
             <img 
               src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=400" 
               alt="Best Friends Thumbnail" 
               className="w-full aspect-[4/3] object-cover rounded-xs"
             />
-            <p className="font-handwriting text-center text-xs text-[#6B5A50] mt-2">
+            <p className="font-handwriting text-center text-xs text-[#6B5A50] mt-1.5 sm:mt-2">
               so grateful for you ♡
             </p>
           </div>
 
           {/* Handwritten Subtitle */}
-          <p className="font-marker text-lg sm:text-xl text-[#8C7A6B] max-w-xs leading-relaxed">
+          <p className="font-marker text-base sm:text-xl text-[#8C7A6B] max-w-xs leading-relaxed px-2">
             "{recipient.subtext || "A little corner of the internet made just for you."}"
           </p>
 
@@ -101,14 +101,14 @@ export const BirthdayCard = ({ onExplore, recipient }) => {
             onClick={onExplore}
             whileHover={{ scale: 1.04, rotate: 1 }}
             whileTap={{ scale: 0.96 }}
-            className="relative group mt-4 px-8 py-3.5 bg-[#D98888] hover:bg-[#C87777] text-white rounded-full font-handwriting text-2xl tracking-wide shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-3 cursor-pointer border-2 border-[#FFFDF9]"
+            className="relative group mt-3 sm:mt-4 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#D98888] hover:bg-[#C87777] text-white rounded-full font-handwriting text-xl sm:text-2xl tracking-wide shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-2 sm:gap-3 cursor-pointer border-2 border-[#FFFDF9]"
           >
             <span>open your little surprise</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
             
             {/* Tiny Heart Badge */}
             <span className="absolute -top-2 -right-2 bg-[#FFF0F0] text-[#D98888] rounded-full p-1 border border-[#F3C5C5] shadow-xs">
-              <Heart className="w-3.5 h-3.5 fill-current" />
+              <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current" />
             </span>
           </motion.button>
 
