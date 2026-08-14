@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Mail, Sparkles, CheckCircle2 } from 'lucide-react';
+import { GhostBestiesSticker, CherrySticker, QuoteSticker, BowSticker, KissSticker } from './Stickers';
 
 export const MemoryEnvelopes = ({ specialEnvelopes }) => {
   const [openIds, setOpenIds] = useState([]);
@@ -14,17 +15,18 @@ export const MemoryEnvelopes = ({ specialEnvelopes }) => {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto py-8 sm:py-16 px-3 sm:px-6">
+    <div className="w-full max-w-5xl mx-auto py-8 sm:py-16 px-3 sm:px-6 relative">
       
       {/* Section Title */}
       <div className="text-center mb-8 sm:mb-12 px-2">
         <span className="font-cursive text-xl sm:text-2xl text-[#D98888]">reasons you are loved ♡</span>
-        <h2 className="font-handwriting text-3xl sm:text-5xl font-bold text-[#3D342F] mt-1">
+        <h2 className="font-handwriting text-3xl sm:text-5xl font-bold text-[#3D342F] mt-1 flex items-center justify-center gap-2">
           Reasons You're Special
         </h2>
-        <p className="font-marker text-base sm:text-lg text-[#8C7A6B] mt-1 sm:mt-2">
-          Tap each note to open your little messages ✉️
-        </p>
+        <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
+          <QuoteSticker text="Favorite Person 📌" color="bg-[#FFF0F3]" textColor="text-[#C9184A]" className="text-xs" />
+          <QuoteSticker text="you make my heart smile 💕" color="bg-[#FFFDF9]" textColor="text-[#3D342F]" className="text-xs" />
+        </div>
       </div>
 
       {/* Scattered Envelopes Cards Grid */}
