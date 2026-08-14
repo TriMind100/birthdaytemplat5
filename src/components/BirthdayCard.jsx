@@ -1,127 +1,145 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight, Heart } from 'lucide-react';
+import { BowSticker, CherrySticker, KissSticker, EvilEyeSticker, BearBadgeSticker } from './Stickers';
 
 export const BirthdayCard = ({ onExplore, recipient }) => {
   return (
-    <div className="min-h-[85vh] sm:min-h-[90vh] flex flex-col items-center justify-center p-3 xs:p-4 sm:p-6 z-10">
+    <div className="min-h-[85vh] sm:min-h-[90vh] flex flex-col items-center justify-center p-3 sm:p-6 z-10 select-none">
       
-      {/* Main Physical Handmade Card Container */}
+      {/* Outer Die-Cut White Sticker Birthday Card Container */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.92, y: 30 }}
+        initial={{ opacity: 0, scale: 0.9, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative w-full max-w-lg bg-[#FAF6EF] rounded-2xl p-5 xs:p-6 sm:p-12 shadow-2xl border-2 sm:border-4 border-[#FFFDF9] outline outline-1 outline-[#E8DCCB] overflow-hidden"
+        transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
+        className="relative w-full max-w-lg bg-[#FFFDF9] rounded-[2.5rem] p-4 sm:p-8 shadow-2xl border-[6px] sm:border-[10px] border-white ring-4 ring-[#FAD4D4]/50 overflow-hidden text-center"
       >
-        {/* Pink Gingham Bow in Top Left Corner */}
-        <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20">
-          <div className="relative w-10 h-8 sm:w-12 sm:h-10 flex items-center justify-center">
-            {/* Bow graphic SVG */}
-            <svg width="40" height="34" viewBox="0 0 60 50" fill="none">
-              <path d="M15,25 C-5,10 0,35 25,25 C0,15 -5,40 15,25 Z" fill="#F3C5C5" stroke="#D98888" strokeWidth="2" />
-              <path d="M45,25 C65,10 60,35 35,25 C60,15 65,40 45,25 Z" fill="#F3C5C5" stroke="#D98888" strokeWidth="2" />
-              <circle cx="30" cy="25" r="6" fill="#D98888" />
-              <path d="M26,30 L18,48 M34,30 L42,48" stroke="#D98888" strokeWidth="3" strokeLinecap="round" />
-            </svg>
-          </div>
+        {/* Corner Stickers */}
+        <div className="absolute top-2 left-2 z-30">
+          <CherrySticker className="w-10 h-10 sm:w-12 sm:h-12" />
         </div>
-
-        {/* Top Right Tape & Doodles */}
-        <div className="washi-tape-pink absolute top-3 right-4 sm:top-4 sm:right-6 w-16 sm:w-20 h-4 sm:h-5 rotate-[4deg]" />
-        
-        {/* Decorative Pressed Baby's Breath / Flower Stem Illustration */}
-        <div className="absolute top-10 sm:top-12 right-3 sm:right-4 opacity-40 pointer-events-none hidden xs:block">
-          <svg width="50" height="75" viewBox="0 0 60 90" fill="none" stroke="#7C9082" strokeWidth="1.2">
-            <path d="M30,90 Q25,50 35,10" />
-            <circle cx="35" cy="10" r="2.5" fill="#FAF6EF" stroke="#D98888" />
-            <circle cx="20" cy="30" r="2.5" fill="#FAF6EF" stroke="#D98888" />
-            <circle cx="45" cy="40" r="2.5" fill="#FAF6EF" stroke="#D98888" />
-            <circle cx="15" cy="60" r="2.5" fill="#FAF6EF" stroke="#D98888" />
-          </svg>
+        <div className="absolute top-2 right-2 z-30">
+          <BowSticker className="w-10 h-9 sm:w-12 sm:h-10" />
         </div>
+        <div className="absolute bottom-14 left-2 z-30 hidden xs:block">
+          <EvilEyeSticker className="w-8 h-8 sm:w-9 sm:h-9" />
+        </div>
+        <div className="absolute bottom-16 right-3 z-30">
+          <KissSticker className="w-10 h-8 sm:w-12 sm:h-9" />
+        </div>
+        {/* Floating background starbursts & hearts */}
+        <div className="absolute top-4 left-6 text-[#FFC72C] text-xl animate-pulse">★</div>
+        <div className="absolute top-12 left-10 text-[#FF85A1] text-sm font-handwriting">♡</div>
+        <div className="absolute top-6 right-6 text-[#FF85A1] text-lg">✦</div>
+        <div className="absolute top-16 right-10 text-[#FFC72C] text-xs">★</div>
 
-        {/* Card Main Header Content Layer */}
-        <div className="relative z-10 flex flex-col items-center text-center space-y-4 sm:space-y-6 pt-3 sm:pt-4">
-          
-          {/* Torn Paper Header 1 */}
-          <motion.div
-            initial={{ rotate: -2 }}
-            animate={{ rotate: [-2, -1, -2] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="torn-paper-note px-4 sm:px-6 py-1.5 sm:py-2 rounded-md shadow-sm border border-[#E8DCCB] inline-block"
-          >
-            <span className="font-cursive text-2xl sm:text-4xl text-[#D98888]">
-              happy ♡
-            </span>
-          </motion.div>
-
-          {/* Main Headline (Torn Paper Banner 2) */}
-          <div className="relative inline-block my-1 sm:my-2">
-            <h1 className="font-handwriting text-4xl xs:text-5xl sm:text-7xl font-bold text-[#3D342F] tracking-wide leading-tight drop-shadow-sm">
-              Birthday
-            </h1>
-            {/* Doodled Underline */}
-            <svg className="w-full h-3 sm:h-4 text-[#D98888]/60 mt-1" viewBox="0 0 200 20" fill="none">
-              <path d="M5,12 Q50,2 100,12 T195,10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-            </svg>
+        {/* 1. Header Bubbly Title */}
+        <div className="relative z-10 pt-2 mb-2 sm:mb-3">
+          {/* Sparkle doodles */}
+          <div className="flex items-center justify-center gap-1 mb-1 text-[#FF85A1]">
+            <Sparkles className="w-4 h-4 text-[#FF85A1]" />
+            <span className="font-handwriting text-xs sm:text-sm text-[#FF85A1] font-bold">✨ Birthday Wishes ✨</span>
+            <Sparkles className="w-4 h-4 text-[#FF85A1]" />
           </div>
 
-          {/* Subheader Badge (Torn Paper Banner 3) */}
-          <motion.div
-            initial={{ rotate: 2 }}
-            animate={{ rotate: [2, 3, 2] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-            className="bg-[#FFF0F0] px-4 sm:px-6 py-1.5 sm:py-2 rounded-md shadow-sm border border-[#F3C5C5] inline-block"
-          >
-            <p className="font-handwriting text-xl sm:text-3xl text-[#52463F]">
-              to my {recipient.title || "favorite human"}
-            </p>
-          </motion.div>
-
-          {/* Polaroid Snippet Thumbnail */}
-          <div className="polaroid-frame my-2 sm:my-4 rotate-[-3deg] transform hover:rotate-0 transition-transform duration-300 w-36 xs:w-44 sm:w-52">
-            <div className="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-12 sm:w-16 h-3.5 sm:h-4" />
-            <img 
-              src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=400" 
-              alt="Best Friends Thumbnail" 
-              className="w-full aspect-[4/3] object-cover rounded-xs"
-            />
-            <p className="font-handwriting text-center text-xs text-[#6B5A50] mt-1.5 sm:mt-2">
-              so grateful for you ♡
-            </p>
-          </div>
-
-          {/* Handwritten Subtitle */}
-          <p className="font-marker text-base sm:text-xl text-[#8C7A6B] max-w-xs leading-relaxed px-2">
-            "{recipient.subtext || "A little corner of the internet made just for you."}"
+          <h1 className="font-handwriting text-5xl xs:text-6xl sm:text-7xl font-extrabold tracking-tight text-[#FF4D79] drop-shadow-[0_3px_0_rgba(255,255,255,1)] filter drop-shadow(0px 3px 6px rgba(255,77,121,0.25))">
+            Happy Birthday
+          </h1>
+          <p className="font-cursive text-3xl sm:text-5xl font-bold text-[#4B2840] -mt-1 sm:-mt-2 tracking-wide">
+            {recipient.nickname || "Best Friend"} ♡
           </p>
+        </div>
 
-          {/* Tactile Handmade Button CTA */}
+        {/* 2. Main Illustration Container with Floating Side Heart Balloons */}
+        <div className="relative my-2 sm:my-4 flex items-center justify-center">
+          
+          {/* Left Heart Balloon Badge */}
+          <motion.div
+            initial={{ opacity: 0, x: -20, rotate: -6 }}
+            animate={{ opacity: 1, x: 0, rotate: [-6, -4, -6] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -left-2 sm:-left-4 top-2 sm:top-6 z-20 w-24 xs:w-28 sm:w-32 bg-[#FF758F] text-white p-2.5 sm:p-3 rounded-[1.5rem] shadow-lg border-2 border-white text-center transform -rotate-6"
+          >
+            <div className="absolute -bottom-2 right-4 w-3 h-3 bg-[#FF758F] rotate-45 border-r-2 border-b-2 border-white" />
+            <p className="font-marker text-[11px] sm:text-xs leading-tight font-medium drop-shadow-xs">
+              So lucky to have you in my life! 💕
+            </p>
+          </motion.div>
+
+          {/* Right Heart Balloon Badge */}
+          <motion.div
+            initial={{ opacity: 0, x: 20, rotate: 6 }}
+            animate={{ opacity: 1, x: 0, rotate: [6, 4, 6] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -right-2 sm:-right-4 top-2 sm:top-6 z-20 w-24 xs:w-28 sm:w-32 bg-[#FF758F] text-white p-2.5 sm:p-3 rounded-[1.5rem] shadow-lg border-2 border-white text-center transform rotate-6"
+          >
+            <div className="absolute -bottom-2 left-4 w-3 h-3 bg-[#FF758F] rotate-45 border-l-2 border-b-2 border-white" />
+            <p className="font-marker text-[11px] sm:text-xs leading-tight font-medium drop-shadow-xs">
+              You're truly amazing! ✨
+            </p>
+          </motion.div>
+
+          {/* Generated High-Quality Best Friends Cute Illustration */}
+          <div className="relative z-10 w-[82%] xs:w-[85%] sm:w-[90%] rounded-2xl overflow-hidden border-4 border-white shadow-md bg-[#FFF0F3]">
+            <img 
+              src="/best_friends_birthday_card.png" 
+              alt="Two Best Friends Birthday Celebration"
+              className="w-full h-auto object-cover max-h-[260px] sm:max-h-[320px] rounded-xl transform hover:scale-103 transition-transform duration-500"
+            />
+          </div>
+
+        </div>
+
+        {/* 3. Bottom Banner Ribbons */}
+        <div className="space-y-2 sm:space-y-3 mt-3 sm:mt-4 relative z-10">
+          
+          {/* Curved Ribbon 1: Pink Sisterhood Banner */}
+          <motion.div
+            initial={{ scale: 0.95 }}
+            animate={{ scale: [0.98, 1.01, 0.98] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+            className="bg-[#FFB3C1] border-2 border-[#FF758F] px-4 py-1.5 sm:py-2 rounded-full shadow-sm mx-auto max-w-sm"
+          >
+            <p className="font-handwriting text-lg sm:text-2xl font-bold text-[#590D22]">
+              Thank you for being my unbiological sister! 💖
+            </p>
+          </motion.div>
+
+          {/* Speech Parchment Box 2 */}
+          <div className="bg-[#FFF5F7] border-2 border-[#FFCCD5] p-3 sm:p-4 rounded-2xl shadow-inner max-w-md mx-auto">
+            <p className="font-handwriting text-base sm:text-xl text-[#4A1525] font-semibold leading-relaxed">
+              "Here's to more laughter, crazy adventures and unforgettable memories together!"
+            </p>
+          </div>
+
+          {/* Bottom Purple Ribbon 3 */}
+          <div className="bg-[#7209B7] text-white px-5 py-1.5 sm:py-2 rounded-full font-marker text-sm sm:text-base tracking-wider font-bold shadow-md inline-block border-2 border-white">
+            ★ Enjoy your special day! ★
+          </div>
+
+        </div>
+
+        {/* 4. Tactile CTA Button to Open Scrapbook */}
+        <div className="pt-4 sm:pt-6 pb-1">
           <motion.button
             onClick={onExplore}
-            whileHover={{ scale: 1.04, rotate: 1 }}
-            whileTap={{ scale: 0.96 }}
-            className="relative group mt-3 sm:mt-4 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#D98888] hover:bg-[#C87777] text-white rounded-full font-handwriting text-xl sm:text-2xl tracking-wide shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-2 sm:gap-3 cursor-pointer border-2 border-[#FFFDF9]"
+            whileHover={{ scale: 1.05, rotate: 1 }}
+            whileTap={{ scale: 0.95 }}
+            className="relative group px-7 py-3.5 sm:px-9 sm:py-4 bg-[#FF4D79] hover:bg-[#E63963] text-white rounded-full font-handwriting text-2xl sm:text-3xl font-bold tracking-wide shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 mx-auto cursor-pointer border-4 border-white"
           >
-            <span>open your little surprise</span>
-            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+            <span>open your scrapbook</span>
+            <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform" />
             
-            {/* Tiny Heart Badge */}
-            <span className="absolute -top-2 -right-2 bg-[#FFF0F0] text-[#D98888] rounded-full p-1 border border-[#F3C5C5] shadow-xs">
-              <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current" />
+            {/* Heart Badge */}
+            <span className="absolute -top-2.5 -right-2 bg-[#FFF0F3] text-[#FF4D79] rounded-full p-1.5 border-2 border-[#FF758F] shadow-md">
+              <Heart className="w-4 h-4 fill-current" />
             </span>
           </motion.button>
-
         </div>
 
-        {/* Hand drawn hearts & doodles in background corners */}
-        <div className="absolute bottom-4 left-4 font-handwriting text-[#D98888] text-xl opacity-60">
-          ✨ ♡ ✨
-        </div>
-        <div className="absolute bottom-4 right-4 font-handwriting text-[#D98888] text-xl opacity-60">
-          ❀ ♡ ❀
-        </div>
       </motion.div>
     </div>
   );
 };
+
+export default BirthdayCard;
