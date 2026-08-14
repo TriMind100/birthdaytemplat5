@@ -14,15 +14,11 @@ export const InteractiveLetter = ({ letter }) => {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="relative bg-[#FAF6EF] rounded-2xl p-4 xs:p-6 sm:p-12 border-2 border-[#E8DCCB] shadow-xl overflow-hidden"
+        className="relative overflow-hidden py-2"
       >
-        {/* Washi Tape Strip */}
-        <div className="washi-tape-pink absolute -top-3 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-4 sm:h-6 rotate-[-1deg]" />
-
         {/* Section Header */}
         <div className="text-center mb-6 sm:mb-8">
-          <span className="font-cursive text-xl sm:text-2xl text-[#D98888]">from the heart ♡</span>
-          <h2 className="font-handwriting text-3xl sm:text-5xl font-bold text-[#3D342F] mt-1">
+          <h2 className="font-handwriting text-3xl sm:text-5xl font-bold text-[#3D342F]">
             {letter.title}
           </h2>
         </div>
@@ -57,7 +53,7 @@ export const InteractiveLetter = ({ letter }) => {
               className="space-y-4 sm:space-y-6"
             >
               {/* Paper Parchment background for letter */}
-              <div className="torn-paper-note p-4 xs:p-6 sm:p-14 md:p-16 rounded-2xl bg-[#FFFDF9] border-2 border-[#E8DCCB] shadow-inner space-y-4 sm:space-y-8 relative">
+              <div className="torn-paper-note p-3.5 xs:p-5 sm:p-14 md:p-16 rounded-xl sm:rounded-2xl bg-[#FFFDF9] border-2 border-[#E8DCCB] shadow-inner space-y-3 sm:space-y-8 relative">
                 
                 {/* Vintage Rose Stamp in corner of letter */}
                 <div className="absolute top-4 right-4 opacity-30 pointer-events-none hidden md:block">
@@ -74,11 +70,11 @@ export const InteractiveLetter = ({ letter }) => {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: idx * 0.15 }}
-                    className={`font-handwriting text-xl xs:text-2xl sm:text-3xl md:text-[2rem] leading-relaxed sm:leading-[2.6rem] tracking-wide ${
+                    className={`font-handwriting text-lg xs:text-2xl sm:text-3xl md:text-[2rem] leading-relaxed sm:leading-[2.6rem] tracking-wide ${
                       idx === 0 
-                        ? 'text-[#D98888] font-bold text-2xl xs:text-3xl sm:text-4xl pb-1 sm:pb-2' 
+                        ? 'text-[#D98888] font-bold text-xl xs:text-3xl sm:text-4xl pb-1 sm:pb-2' 
                         : idx === letter.body.length - 1
-                        ? 'text-[#D98888] font-semibold pt-4 sm:pt-6 text-2xl xs:text-3xl sm:text-[2.2rem]'
+                        ? 'text-[#D98888] font-semibold pt-3 sm:pt-6 text-xl xs:text-3xl sm:text-[2.2rem]'
                         : 'text-[#3D342F]'
                     }`}
                   >
