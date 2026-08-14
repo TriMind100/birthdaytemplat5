@@ -71,14 +71,14 @@ export const MemoryEnvelopes = ({ specialEnvelopes }) => {
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                   className="overflow-hidden"
                 >
-                  <div className="torn-paper-note p-4 rounded-lg bg-[#FFF5F5]/60 border border-[#F3C5C5]">
-                    <span className="font-marker text-xs text-[#8C7A6B] block mb-1">
+                  <div className="torn-paper-note p-5 sm:p-6 rounded-xl bg-[#FFF5F5]/70 border border-[#F3C5C5] shadow-xs">
+                    <span className="font-marker text-xs text-[#8C7A6B] block mb-1.5 font-medium">
                       {env.title}
                     </span>
-                    <p className="font-handwriting text-2xl text-[#3D342F] leading-relaxed">
+                    <p className="font-handwriting text-2xl sm:text-[1.7rem] text-[#3D342F] leading-relaxed sm:leading-snug">
                       "{env.message}"
                     </p>
-                    <div className="mt-2 flex justify-end">
+                    <div className="mt-3 flex justify-end">
                       <Heart className="w-4 h-4 fill-[#D98888] text-[#D98888]" />
                     </div>
                   </div>
