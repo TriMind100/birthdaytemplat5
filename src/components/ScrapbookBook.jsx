@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Heart } from 'lucide-react';
 import { MemoryTimeline } from './MemoryTimeline';
 import { MemoryEnvelopes } from './MemoryEnvelopes';
-import { AnimatedFlowers } from './AnimatedFlowers';
 import { InteractiveLetter } from './InteractiveLetter';
 import { FinalSurprise } from './FinalSurprise';
 
@@ -19,10 +18,6 @@ export const ScrapbookBook = ({ cardData, onBackToCard }) => {
     {
       id: 'notes',
       component: <MemoryEnvelopes specialEnvelopes={cardData.specialEnvelopes} />,
-    },
-    {
-      id: 'flowers',
-      component: <AnimatedFlowers />,
     },
     {
       id: 'letter',
