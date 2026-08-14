@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Sparkles, ChevronRight, Bookmark } from 'lucide-react';
+import { BearBadgeSticker, EvilEyeSticker, QuoteSticker, BowSticker, CherrySticker } from './Stickers';
 
 export const MemoryTimeline = ({ memories }) => {
   const [activeMemoryId, setActiveMemoryId] = useState(memories[0]?.id || "beginning");
@@ -8,17 +9,23 @@ export const MemoryTimeline = ({ memories }) => {
   const activeMemory = memories.find((m) => m.id === activeMemoryId) || memories[0];
 
   return (
-    <div className="w-full max-w-5xl mx-auto py-8 sm:py-16 px-3 sm:px-6">
+    <div className="w-full max-w-5xl mx-auto py-8 sm:py-16 px-3 sm:px-6 relative">
       
+      {/* Corner Stickers */}
+      <div className="absolute top-4 right-4 z-20 hidden sm:block">
+        <BearBadgeSticker />
+      </div>
+
       {/* Header */}
       <div className="text-center mb-6 sm:mb-12 px-2">
         <span className="font-cursive text-xl sm:text-2xl text-[#D98888]">our storybook ♡</span>
-        <h2 className="font-handwriting text-3xl sm:text-5xl font-bold text-[#3D342F] mt-1">
+        <h2 className="font-handwriting text-3xl sm:text-5xl font-bold text-[#3D342F] mt-1 flex items-center justify-center gap-2">
           little moments, big memories ♡
         </h2>
-        <p className="font-marker text-base sm:text-lg text-[#8C7A6B] mt-1 sm:mt-2">
-          Click through the timeline to relive our favorite chapters ✦
-        </p>
+        <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
+          <QuoteSticker text="better together 💖" color="bg-[#FFF0F3]" textColor="text-[#C9184A]" className="text-xs" />
+          <QuoteSticker text="my happy place 🌸" color="bg-[#FFFDF9]" textColor="text-[#3D342F]" className="text-xs" />
+        </div>
       </div>
 
       {/* Timeline Tabs Nav */}
