@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Heart } from 'lucide-react';
 import { MemoryTimeline } from './MemoryTimeline';
-import { MemoryEnvelopes } from './MemoryEnvelopes';
 import { InteractiveLetter } from './InteractiveLetter';
 import { FinalSurprise } from './FinalSurprise';
 
@@ -14,10 +13,6 @@ export const ScrapbookBook = ({ cardData, onBackToCard }) => {
     {
       id: 'timeline',
       component: <MemoryTimeline memories={cardData.memories} />,
-    },
-    {
-      id: 'notes',
-      component: <MemoryEnvelopes specialEnvelopes={cardData.specialEnvelopes} />,
     },
     {
       id: 'letter',
