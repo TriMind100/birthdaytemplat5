@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Heart } from 'lucide-react';
-import { PhotoGallery } from './PhotoGallery';
-import { InteractiveHeartTree } from './InteractiveHeartTree';
 import { MemoryTimeline } from './MemoryTimeline';
 import { MemoryEnvelopes } from './MemoryEnvelopes';
 import { AnimatedFlowers } from './AnimatedFlowers';
@@ -14,14 +12,6 @@ export const ScrapbookBook = ({ cardData, onBackToCard }) => {
   const [direction, setDirection] = useState(1);
 
   const pages = [
-    {
-      id: 'memories',
-      component: <PhotoGallery galleryItems={cardData.gallery} />,
-    },
-    {
-      id: 'tree',
-      component: <InteractiveHeartTree />,
-    },
     {
       id: 'timeline',
       component: <MemoryTimeline memories={cardData.memories} />,
