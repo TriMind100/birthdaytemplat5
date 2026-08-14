@@ -1,0 +1,115 @@
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { cardData } from './data/cardData';
+import { BackgroundDecoration } from './components/BackgroundDecoration';
+import { MusicControl } from './components/MusicControl';
+import { Envelope } from './components/Envelope';
+import { BirthdayCard } from './components/BirthdayCard';
+import { PhotoGallery } from './components/PhotoGallery';
+import { MemoryTimeline } from './components/MemoryTimeline';
+import { MemoryEnvelopes } from './components/MemoryEnvelopes';
+import { InteractiveLetter } from './components/InteractiveLetter';
+import { FinalSurprise } from './components/FinalSurprise';
+
+export function App() {
+  const [stage, setStage] = useState('envelope'); // 'envelope' | 'card' | 'scrapbook'
+  const scrapbookRef = useRef(null);
+
+  const handleEnvelopeOpened = () => {
+    setStage('card');
+  };
+
+  const handleExploreSurprise = () => {
+    setStage('scrapbook');
+    setTimeout(() => {
+      if (scrapbookRef.current) {
+        scrapbookRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
+  return (
+    <div className="min-h-screen relative font-sans text-[#3D342F] selection:bg-[#F3C5C5]/50 overflow-x-hidden">
+      
+      {/* Background Petals & Paper Grain Overlay */}
+      <BackgroundDecoration />
+
+      {/* Floating Ambient Music Control (♫) */}
+      <MusicControl audioUrl={cardData.music.audioUrl} />
+
+      {/* Main Content View Switcher */}
+      <main className="relative z-10">
+        
+        {/* Stage 1: Envelope Opening Experience */}
+        {stage === 'envelope' && (
+          <Envelope onOpen={handleEnvelopeOpened} />
+        )}
+
+        {/* Stage 2: Main Birthday Card Cover */}
+        {stage === 'card' && (
+          <BirthdayCard 
+            recipient={cardData.recipient} 
+            onExplore={handleExploreSurprise} 
+          />
+        )}
+
+        {/* Stage 3: Full Scrapbook & Interactive Sections */}
+        {stage === 'scrapbook' && (
+          <motion.div
+            ref={scrapbookRef}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-16 pb-24"
+          >
+            {/* Header Banner */}
+            <header className="pt-12 text-center">
+              <span className="font-cursive text-3xl text-[#D98888]">welcome to your scrapbook ♡</span>
+              <h1 className="font-handwriting text-5xl sm:text-6xl font-bold text-[#3D342F] mt-1">
+                {cardData.recipient.name}'s Birthday Corner
+              </h1>
+              <div className="washi-tape-pink w-32 h-5 mx-auto mt-3 rotate-[-1deg]" />
+            </header>
+
+            {/* Photo Scrapbook & Gallery */}
+            <section>
+              <PhotoGallery galleryItems={cardData.gallery} />
+            </section>
+
+            {/* Memory Timeline */}
+            <section className="bg-[#FAF5EB]/50 py-12 border-y border-[#E8DCCB]">
+              <MemoryTimeline memories={cardData.memories} />
+            </section>
+
+            {/* Reasons You're Special Mini-Envelopes */}
+            <section>
+              <MemoryEnvelopes specialEnvelopes={cardData.specialEnvelopes} />
+            </section>
+
+            {/* Interactive Letter */}
+            <section className="bg-[#FAF5EB]/50 py-12 border-y border-[#E8DCCB]">
+              <InteractiveLetter letter={cardData.letter} />
+            </section>
+
+            {/* Final Envelope & Candle Wish */}
+            <section>
+              <FinalSurprise 
+                finalData={cardData.finalEnvelope} 
+                recipient={cardData.recipient} 
+              />
+            </section>
+
+            {/* Footer */}
+            <footer className="text-center py-8 text-xs font-marker text-[#8C7A6B]">
+              Made with infinite love & care for my favorite human ♡
+            </footer>
+
+          </motion.div>
+        )}
+
+      </main>
+    </div>
+  );
+}
+
+export default App;
