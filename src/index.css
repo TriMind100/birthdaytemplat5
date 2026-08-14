@@ -9,7 +9,10 @@
     --font-sans: 'Plus Jakarta Sans', sans-serif;
   }
   
-  body {
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
     font-family: var(--font-sans);
     background-color: #FDFBF7;
     color: #3D342F;
