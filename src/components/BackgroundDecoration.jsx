@@ -1,12 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { LoveBubbles } from './LoveBubbles';
+import { BackgroundHeartTree } from './BackgroundHeartTree';
+import { BloomingHeartGarden } from './BloomingHeartGarden';
 
 export const BackgroundDecoration = () => {
-  // Generate random floating petals for tactile background vibe
-  const petals = Array.from({ length: 14 }).map((_, i) => ({
+  // Generate random floating petals & golden sparkles
+  const petals = Array.from({ length: 18 }).map((_, i) => ({
     id: i,
-    size: Math.floor(Math.random() * 12) + 14,
+    size: Math.floor(Math.random() * 14) + 14,
     x: Math.random() * 100,
     y: Math.random() * 100,
     duration: Math.random() * 8 + 12,
@@ -16,6 +18,12 @@ export const BackgroundDecoration = () => {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
+      {/* Ambient Blooming Heart Tree Background Animation */}
+      <BackgroundHeartTree />
+
+      {/* Blooming Heart Flowers Garden Bottom Background */}
+      <BloomingHeartGarden />
+
       {/* Interactive Translucent Love Bubbles */}
       <LoveBubbles />
 
