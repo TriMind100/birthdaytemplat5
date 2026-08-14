@@ -1,22 +1,32 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Heart, Sparkles, Calendar } from 'lucide-react';
+import { GhostBestiesSticker, CherrySticker, KissSticker, QuoteSticker, BowSticker } from './Stickers';
 
 export const PhotoGallery = ({ galleryItems }) => {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   return (
-    <div className="w-full max-w-6xl mx-auto py-8 sm:py-12 px-3 sm:px-6 overflow-x-hidden">
+    <div className="w-full max-w-6xl mx-auto py-8 sm:py-12 px-3 sm:px-6 overflow-x-hidden relative">
       
+      {/* Floating Section Sticker Accents */}
+      <div className="absolute top-2 left-6 z-20 hidden md:block">
+        <GhostBestiesSticker />
+      </div>
+      <div className="absolute top-4 right-8 z-20 hidden md:block">
+        <CherrySticker className="w-12 h-12" />
+      </div>
+
       {/* Section Header */}
       <div className="text-center mb-8 sm:mb-12 relative px-2">
         <span className="font-cursive text-xl sm:text-2xl text-[#D98888]">treasured moments ♡</span>
-        <h2 className="font-handwriting text-3xl sm:text-5xl font-bold text-[#3D342F] mt-1">
+        <h2 className="font-handwriting text-3xl sm:text-5xl font-bold text-[#3D342F] mt-1 flex items-center justify-center gap-2">
           Scrapbook Memories
         </h2>
-        <p className="font-marker text-base sm:text-lg text-[#8C7A6B] mt-1 sm:mt-2">
-          Click any polaroid to open full memory note ✦
-        </p>
+        <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
+          <QuoteSticker text="OUR LAUGHS are limitless ✨" color="bg-[#FFFDF9]" textColor="text-[#3D342F]" className="text-xs" />
+          <QuoteSticker text="OUR MEMORIES are countless 💖" color="bg-[#FFF0F3]" textColor="text-[#C9184A]" className="text-xs" />
+        </div>
       </div>
 
       {/* Organic Scattered Polaroid Grid */}
