@@ -62,12 +62,9 @@ export const PhotoGallery = ({ galleryItems }) => {
 
       {/* Section Header */}
       <div className="text-center mb-6 sm:mb-8 relative px-2">
-        <h2 className="font-handwriting text-3xl sm:text-5xl font-bold text-[#3D342F] mt-1 flex items-center justify-center gap-2">
-          Memories
+        <h2 className="font-handwriting text-4xl sm:text-5xl font-bold text-[#FF4D79] mt-1 flex items-center justify-center gap-2">
+          Memories 📸✨
         </h2>
-        <p className="font-marker text-xs sm:text-sm text-[#8C7A6B] mt-1">
-          ✦ swipe or use arrows to turn album pages ✦
-        </p>
       </div>
 
       {/* Main Swipable Polaroid Album Frame */}
