@@ -340,20 +340,20 @@ export const InteractiveHeartTreeCard = ({ onExplore, recipient }) => {
         initial={{ opacity: 0, scale: 0.92, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
-        className="relative w-full max-w-4xl bg-[#FFFDF9] rounded-[2.5rem] p-6 sm:p-10 lg:p-12 shadow-2xl border-[6px] sm:border-[10px] border-white ring-4 ring-[#FAD4D4]/50 overflow-hidden"
+        className="relative w-full max-w-4xl bg-[#FFFDF9] rounded-2xl xs:rounded-[2rem] sm:rounded-[2.5rem] p-4 xs:p-6 sm:p-10 lg:p-12 shadow-2xl border-4 sm:border-[10px] border-white ring-4 ring-[#FAD4D4]/50 overflow-hidden"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center min-h-[380px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 xs:gap-6 lg:gap-8 items-center min-h-[320px] sm:min-h-[380px]">
           {/* Left Side: Calligraphic Birthday Wish with Butterfly */}
           <div className="lg:col-span-5 text-left flex flex-col justify-center pl-1 sm:pl-3 z-20">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative select-none py-2"
+              className="relative select-none py-1 sm:py-2"
             >
               {/* Line 1: Happy + Swash + Butterfly */}
               <div className="flex items-center gap-1">
-                <span className="font-calligraphy text-6xl xs:text-7xl sm:text-8xl md:text-[5.2rem] text-[#2B1A1D] tracking-normal leading-none font-medium">
+                <span className="font-calligraphy text-5xl xs:text-6xl sm:text-8xl md:text-[5.2rem] text-[#2B1A1D] tracking-normal leading-none font-medium">
                   Happy
                 </span>
                 {/* Swash line leading to butterfly matching reference */}
