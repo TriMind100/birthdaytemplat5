@@ -40,12 +40,12 @@ export const MusicControl = ({ audioUrl }) => {
   };
 
   return (
-    <div className="fixed bottom-6 left-6 z-50 flex items-center gap-2">
+    <div className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-50 flex items-center gap-2">
       <motion.button
         onClick={togglePlay}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="relative group flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-[#FAF5EB]/90 backdrop-blur-sm border border-[#E8D9C8] text-[#52463F] shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
+        className="relative group flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-full bg-[#FAF5EB]/90 backdrop-blur-sm border border-[#E8D9C8] text-[#52463F] shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -56,13 +56,13 @@ export const MusicControl = ({ audioUrl }) => {
 
         <div className="text-[#D98888]">
           {isPlaying ? (
-            <Volume2 className="w-4 h-4 animate-pulse" />
+            <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-pulse" />
           ) : (
-            <VolumeX className="w-4 h-4 opacity-60" />
+            <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4 opacity-60" />
           )}
         </div>
 
-        <span className="text-xs font-medium tracking-wide font-sans text-[#6B5A50]">
+        <span className="text-[11px] sm:text-xs font-medium tracking-wide font-sans text-[#6B5A50]">
           {isPlaying ? "Music Playing ♫" : "Play Music ♫"}
         </span>
 
