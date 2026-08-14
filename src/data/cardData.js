@@ -1,7 +1,7 @@
 export const cardData = {
   recipient: {
     name: "Sophia",
-    nickname: "Bestie",
+    nickname: "",
     title: "to my favorite human",
     subtext: "A little corner of the internet made just for you."
   },
