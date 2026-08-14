@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Heart } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { MemoryTimeline } from './MemoryTimeline';
 import { InteractiveLetter } from './InteractiveLetter';
 import { FinalSurprise } from './FinalSurprise';
 
-export const ScrapbookBook = ({ cardData, onBackToCard }) => {
+export const ScrapbookBook = ({ cardData, onBackToCard, onRestart }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [finalStep, setFinalStep] = useState('teaser'); // 'teaser' | 'candle' | 'final'
+  const [isCandleBlown, setIsCandleBlown] = useState(false);
 
   const pages = [
     {
@@ -20,15 +22,31 @@ export const ScrapbookBook = ({ cardData, onBackToCard }) => {
     },
     {
       id: 'wish',
-      component: <FinalSurprise finalData={cardData.finalEnvelope} recipient={cardData.recipient} />,
+      component: (
+        <FinalSurprise 
+          finalData={cardData.finalEnvelope} 
+          recipient={cardData.recipient} 
+          onRestart={onRestart}
+          step={finalStep}
+          onOpenTeaser={() => setFinalStep('candle')}
+          isCandleBlown={isCandleBlown}
+          onCandleBlown={() => setIsCandleBlown(true)}
+        />
+      ),
     },
   ];
+
+  const canGoNext = 
+    currentPage < pages.length - 1 || 
+    (currentPage === pages.length - 1 && finalStep === 'candle' && isCandleBlown);
 
   const handleNext = () => {
     if (currentPage < pages.length - 1) {
       setDirection(1);
       setCurrentPage((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (currentPage === pages.length - 1 && finalStep === 'candle' && isCandleBlown) {
+      setFinalStep('final');
     }
   };
 
@@ -73,17 +91,6 @@ export const ScrapbookBook = ({ cardData, onBackToCard }) => {
   return (
     <div className="relative min-h-screen py-6 sm:py-10 px-2 sm:px-6 max-w-6xl mx-auto select-none overflow-x-hidden">
       
-      {/* Top Floating Back Button */}
-      <div className="flex items-center justify-between mb-4 sm:mb-6 px-2">
-        <button
-          onClick={onBackToCard}
-          className="flex items-center gap-1.5 px-4 py-2 bg-white/90 backdrop-blur-md text-[#C9184A] rounded-full border border-[#F3C5C5] shadow-sm hover:shadow-md font-handwriting text-base font-bold transition-all hover:scale-105 cursor-pointer"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Cover Card</span>
-        </button>
-      </div>
-
       {/* Main 3D Tactile Storybook Container */}
       <div className="relative perspective-1000 min-h-[70vh]">
         
@@ -96,63 +103,61 @@ export const ScrapbookBook = ({ cardData, onBackToCard }) => {
             animate="center"
             exit="exit"
             style={{ transformStyle: 'preserve-3d', transformOrigin: direction > 0 ? 'left center' : 'right center' }}
-            className="w-full bg-[#FFFDF9] rounded-[2.5rem] p-4 sm:p-10 border-4 border-white shadow-[0_15px_40px_rgba(61,52,47,0.1)] relative overflow-hidden"
+            className="w-full bg-[#FFFDF9] rounded-2xl xs:rounded-[2rem] sm:rounded-[2.5rem] p-3 xs:p-5 sm:p-10 border-2 sm:border-4 border-white shadow-[0_15px_40px_rgba(61,52,47,0.1)] relative overflow-hidden"
           >
             {/* Center Spine Crease Effect */}
-            <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-8 bg-gradient-to-r from-transparent via-[#3D342F]/5 to-transparent pointer-events-none z-20" />
+            <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-6 sm:w-8 bg-gradient-to-r from-transparent via-[#3D342F]/5 to-transparent pointer-events-none z-20" />
 
             {/* Corner Decorative Washi Tape */}
-            <div className="washi-tape-pink absolute -top-2 left-8 w-24 h-4 rotate-[-3deg]" />
-            <div className="washi-tape-pink absolute -top-2 right-8 w-24 h-4 rotate-[3deg]" />
+            <div className="washi-tape-pink absolute -top-2 left-4 sm:left-8 w-16 sm:w-24 h-3 sm:h-4 rotate-[-3deg]" />
+            <div className="washi-tape-pink absolute -top-2 right-4 sm:right-8 w-16 sm:w-24 h-3 sm:h-4 rotate-[3deg]" />
 
             {/* Active Page Component */}
-            <div className="relative z-10">
+            <div className="relative z-10 pb-10 sm:pb-16">
               {pages[currentPage].component}
+            </div>
+
+            {/* Bottom Corner Arrow Buttons (Unified single container for 100% symmetric alignment) */}
+            <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-8 sm:right-8 z-30 flex items-center justify-between pointer-events-none">
+              
+              {/* Previous Button (Bottom Left Corner) */}
+              <div>
+                {currentPage > 0 && (
+                  <motion.button
+                    initial={{ opacity: 0, scale: 0.8, x: -15 }}
+                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    onClick={handlePrev}
+                    whileHover={{ scale: 1.15, rotate: -6 }}
+                    whileTap={{ scale: 0.88 }}
+                    title="Previous"
+                    className="pointer-events-auto group flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 bg-[#FF4D79] hover:bg-[#E63963] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border-2 sm:border-3 border-white cursor-pointer"
+                  >
+                    <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform" />
+                  </motion.button>
+                )}
+              </div>
+
+              {/* Next Button (Bottom Right Corner) */}
+              <div>
+                {canGoNext && (
+                  <motion.button
+                    initial={{ opacity: 0, scale: 0.8, x: 15 }}
+                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    onClick={handleNext}
+                    whileHover={{ scale: 1.15, rotate: 6 }}
+                    whileTap={{ scale: 0.88 }}
+                    title="Next"
+                    className="pointer-events-auto group flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 bg-[#FF4D79] hover:bg-[#E63963] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border-2 sm:border-3 border-white cursor-pointer"
+                  >
+                    <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
+                  </motion.button>
+                )}
+              </div>
+
             </div>
 
           </motion.div>
         </AnimatePresence>
-
-      </div>
-
-      {/* Floating Side Bookmark Navigation Ribbons */}
-      <div className="fixed inset-y-0 inset-x-2 sm:inset-x-6 pointer-events-none flex items-center justify-between z-40">
-        
-        {/* Left Side Bookmark Button (Previous) */}
-        <div>
-          {currentPage > 0 && (
-            <motion.button
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              whileHover={{ scale: 1.1, x: 4 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={handlePrev}
-              className="pointer-events-auto flex items-center gap-2 px-4 py-3 bg-[#FFF0F3]/95 backdrop-blur-md text-[#C9184A] rounded-r-full border-2 border-l-0 border-[#F3C5C5] shadow-lg font-cursive text-xl sm:text-2xl font-bold cursor-pointer transition-all"
-            >
-              <ArrowLeft className="w-5 h-5 animate-pulse" />
-              <span className="hidden sm:inline">prev ♡</span>
-            </motion.button>
-          )}
-        </div>
-
-        {/* Right Side Bookmark Button (Next) */}
-        <div>
-          {currentPage < pages.length - 1 && (
-            <motion.button
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              whileHover={{ scale: 1.1, x: -4 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={handleNext}
-              className="pointer-events-auto flex items-center gap-2 px-4 py-3 bg-[#FF4D79] text-white rounded-l-full border-2 border-r-0 border-white shadow-xl font-cursive text-xl sm:text-2xl font-bold cursor-pointer transition-all"
-            >
-              <span className="hidden sm:inline">next ♡</span>
-              <ArrowRight className="w-5 h-5 animate-bounce" style={{ animationDirection: 'alternate' }} />
-            </motion.button>
-          )}
-        </div>
 
       </div>
 
