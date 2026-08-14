@@ -56,19 +56,28 @@ export const InteractiveLetter = ({ letter }) => {
               className="space-y-6"
             >
               {/* Paper Parchment background for letter */}
-              <div className="torn-paper-note p-6 sm:p-10 rounded-xl bg-[#FFFDF9] border border-[#E8DCCB] shadow-inner space-y-4">
+              <div className="torn-paper-note p-8 sm:p-14 md:p-16 rounded-2xl bg-[#FFFDF9] border-2 border-[#E8DCCB] shadow-inner space-y-6 sm:space-y-8 relative">
                 
+                {/* Vintage Rose Stamp in corner of letter */}
+                <div className="absolute top-6 right-6 opacity-30 pointer-events-none hidden sm:block">
+                  <svg width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="#D98888">
+                    <circle cx="50" cy="50" r="40" strokeWidth="2" strokeDasharray="4 4" />
+                    <path d="M50,20 Q65,40 50,60 Q35,40 50,20 Z" fill="#F3C5C5" />
+                    <circle cx="50" cy="50" r="8" fill="#D98888" />
+                  </svg>
+                </div>
+
                 {letter.body.map((paragraph, idx) => (
                   <motion.p
                     key={idx}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: idx * 0.15 }}
-                    className={`font-handwriting text-2xl sm:text-3xl leading-relaxed ${
+                    className={`font-handwriting text-2xl sm:text-3xl md:text-[2rem] leading-relaxed sm:leading-[2.6rem] tracking-wide ${
                       idx === 0 
-                        ? 'text-[#D98888] font-bold text-3xl' 
+                        ? 'text-[#D98888] font-bold text-3xl sm:text-4xl pb-2' 
                         : idx === letter.body.length - 1
-                        ? 'text-[#D98888] font-semibold pt-4 text-[2.2rem]'
+                        ? 'text-[#D98888] font-semibold pt-6 text-3xl sm:text-[2.2rem]'
                         : 'text-[#3D342F]'
                     }`}
                   >
@@ -76,9 +85,9 @@ export const InteractiveLetter = ({ letter }) => {
                   </motion.p>
                 ))}
 
-                <div className="pt-6 flex items-center justify-between border-t border-dashed border-[#E8DCCB]">
-                  <span className="font-cursive text-xl text-[#8C7A6B]">written with lots of love ♡</span>
-                  <div className="flex items-center gap-1 text-[#D98888]">
+                <div className="pt-8 flex items-center justify-between border-t border-dashed border-[#E8DCCB] mt-8">
+                  <span className="font-cursive text-2xl text-[#8C7A6B]">written with lots of love ♡</span>
+                  <div className="flex items-center gap-1.5 text-[#D98888]">
                     <Sparkles className="w-5 h-5" />
                     <Heart className="w-5 h-5 fill-current" />
                   </div>
