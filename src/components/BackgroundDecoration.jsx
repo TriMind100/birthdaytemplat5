@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { LoveBubbles } from './LoveBubbles';
 
 export const BackgroundDecoration = () => {
   // Generate random floating petals for tactile background vibe
@@ -15,17 +16,20 @@ export const BackgroundDecoration = () => {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
+      {/* Interactive Translucent Love Bubbles */}
+      <LoveBubbles />
+
       {/* Soft Paper Grain Texture Background */}
       <div className="absolute inset-0 paper-texture opacity-90" />
       
       {/* Warm Ambient Vignette */}
       <div className="absolute inset-0 bg-radial from-transparent via-[#FAF5EB]/40 to-[#F5ECE0]/70" />
 
-      {/* Floating Petals Ambient Animation */}
-      {petals.map((p) => (
+      {/* Floating Petals & Cute Sticker Accents Ambient Animation */}
+      {petals.map((p, idx) => (
         <motion.div
           key={p.id}
-          className="absolute text-[#E8A5A5]/40 opacity-75"
+          className="absolute text-[#E8A5A5]/50 opacity-75 select-none"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,
@@ -43,9 +47,15 @@ export const BackgroundDecoration = () => {
             delay: p.delay,
           }}
         >
-          <svg width={p.size} height={p.size} viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C12 2 14.5 7 19 9.5C14.5 12 12 17 12 17C12 17 9.5 12 5 9.5C9.5 7 12 2 12 2Z" />
-          </svg>
+          {idx % 4 === 0 ? (
+            <span className="text-sm opacity-60 filter drop-shadow-xs">🍒</span>
+          ) : idx % 4 === 1 ? (
+            <span className="text-sm opacity-60 filter drop-shadow-xs">🎀</span>
+          ) : (
+            <svg width={p.size} height={p.size} viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C12 2 14.5 7 19 9.5C14.5 12 12 17 12 17C12 17 9.5 12 5 9.5C9.5 7 12 2 12 2Z" />
+            </svg>
+          )}
         </motion.div>
       ))}
 
