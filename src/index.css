@@ -20,6 +20,10 @@
 }
 
 /* Custom Typography Helpers */
+.font-calligraphy {
+  font-family: 'Great Vibes', 'Alex Brush', cursive;
+}
+
 .font-handwriting {
   font-family: var(--font-handwriting);
 }
