@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart } from 'lucide-react';
+import { BowSticker, CherrySticker, QuoteSticker } from './Stickers';
 
 export const Envelope = ({ onOpen }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,19 +18,25 @@ export const Envelope = ({ onOpen }) => {
 
   return (
     <div className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col items-center justify-center p-3 sm:p-4 z-10 overflow-hidden">
+      
+      {/* Top Silk Bow Sticker Accent */}
+      <div className="mb-2">
+        <BowSticker className="w-12 h-10 sm:w-16 sm:h-12" />
+      </div>
+
       {/* Background prompt message */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="text-center mb-6 sm:mb-8 max-w-md px-4"
+        className="text-center mb-6 sm:mb-8 max-w-md px-4 relative"
       >
         <p className="font-handwriting text-xl sm:text-2xl md:text-3xl text-[#6B5A50] tracking-wide mb-1 leading-snug">
           "You have a little something waiting for you..."
         </p>
-        <p className="font-cursive text-lg sm:text-xl text-[#D98888]">
-          Open it ♡
-        </p>
+        <div className="flex items-center justify-center gap-2 mt-1">
+          <QuoteSticker text="Not sisters by blood, but sisters by heart 💖" color="bg-[#FFF0F3]" textColor="text-[#C9184A]" className="text-xs sm:text-sm" />
+        </div>
       </motion.div>
 
       {/* Main Interactive Handmade Envelope Container */}
