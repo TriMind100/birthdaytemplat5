@@ -149,9 +149,7 @@ export const cardData = {
       "Thank you for all the random phone calls, the unhinged late-night chats, the comfortable silences, and all the memories we've built so far. You bring so much light, comfort, and joy into my life.",
       "I hope this year brings you everything your sweet heart desires: endless happiness, soft quiet moments, spontaneous adventures, and all the success you deserve.",
       "Thank you for being my rock, my partner in chaos, and my truest best friend.",
-      "Here's to another year of growing together, celebrating life, and making memories we'll laugh about when we're old!",
-      "With all my love,",
-      "Your Forever Bestie ♡"
+      "With all my love ♡"
     ]
   },
 
