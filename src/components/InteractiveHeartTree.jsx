@@ -222,10 +222,6 @@ export const InteractiveHeartTree = () => {
       >
         {/* Header Title */}
         <div className="mb-4">
-          <span className="font-cursive text-2xl sm:text-3xl text-[#FF4D79]">blooming with love ♡</span>
-          <h2 className="font-handwriting text-3xl sm:text-5xl font-extrabold text-[#3D342F] mt-1">
-            The Interactive Heart Tree 🌸
-          </h2>
           <p className="font-marker text-base sm:text-lg text-[#8C7A6B] mt-1">
             Tap or click on the tree canopy to bloom falling heart petals! ✦
           </p>
@@ -238,20 +234,6 @@ export const InteractiveHeartTree = () => {
             className="w-full h-full cursor-pointer touch-none"
           />
 
-          {/* Floating Message Overlay */}
-          <div className="absolute bottom-4 left-4 sm:left-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#FFCCD5] shadow-md text-left">
-            <span className="font-cursive text-xs text-[#FF4D79] block">and... make it count</span>
-            <p className="font-handwriting text-sm sm:text-lg text-[#3D342F] font-bold">
-              Happy Birthday — here's to a year that blooms with love & laughter! ♡
-            </p>
-          </div>
-        </div>
-
-        {/* Interactive Stats & Button */}
-        <div className="mt-4 sm:mt-6 flex flex-wrap items-center justify-center gap-3">
-          <div className="bg-[#FFF0F3] px-4 py-1.5 rounded-full border border-[#FFCCD5] font-handwriting text-base text-[#C9184A] font-bold shadow-xs">
-            🌸 {bloomCount * 15} Extra Hearts Bloomed
-          </div>
         </div>
 
       </motion.div>
