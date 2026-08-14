@@ -42,20 +42,20 @@ export const Envelope = ({ onOpen }) => {
         {/* Shadow underneath envelope */}
         <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[90%] h-8 bg-[#3D342F]/10 blur-xl rounded-full transition-all duration-300 group-hover:bg-[#3D342F]/15 group-hover:w-[95%]" />
 
-        {/* Envelope Back Body Container */}
-        <div className="absolute inset-0 bg-[#F5ECE0] rounded-lg border border-[#E5D5C5] shadow-xl overflow-hidden">
+        {/* Envelope Body Container */}
+        <div className="absolute inset-0 bg-[#F5ECE0] rounded-lg border border-[#E5D5C5] shadow-xl">
           
           {/* Internal Greeting Preview Card sliding up when opened */}
           <motion.div
-            initial={{ y: 0, scale: 0.95 }}
-            animate={isOpen ? { y: -160, scale: 1 } : { y: 0, scale: 0.95 }}
+            initial={{ y: 20, scale: 0.9, opacity: 0 }}
+            animate={isOpen ? { y: -170, scale: 1, opacity: 1 } : { y: 20, scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.9, ease: [0.34, 1.56, 0.64, 1] }}
-            className="absolute inset-x-4 top-4 bottom-4 bg-[#FFFDF9] rounded-md p-6 border border-[#E8DCCB] shadow-md flex flex-col items-center justify-center text-center z-10"
+            className="absolute inset-x-4 top-4 bottom-4 bg-[#FFFDF9] rounded-lg p-6 sm:p-8 border border-[#E8DCCB] shadow-md flex flex-col items-center justify-center text-center z-10"
           >
             <div className="wasi-tape-pink absolute -top-2 left-1/2 -translate-x-1/2 w-20 h-4 bg-[#F3C5C5]/60 border-x border-dashed border-[#D98888]/40" />
-            <span className="font-cursive text-2xl text-[#D98888] mb-1">happy ♡</span>
-            <h2 className="font-handwriting text-4xl text-[#3D342F] font-bold tracking-wide">Birthday</h2>
-            <p className="font-marker text-sm text-[#8C7A6B] mt-1">to my favorite human</p>
+            <span className="font-cursive text-2xl sm:text-3xl text-[#D98888] mb-1">happy ♡</span>
+            <h2 className="font-handwriting text-4xl sm:text-5xl text-[#3D342F] font-bold tracking-wide my-1">Birthday</h2>
+            <p className="font-marker text-base text-[#8C7A6B] mt-1">to my favorite human</p>
           </motion.div>
 
           {/* Flowers emerging from inside envelope */}
@@ -78,13 +78,13 @@ export const Envelope = ({ onOpen }) => {
           </div>
 
           {/* Envelope Bottom & Side Pocket Flaps */}
-          <div className="absolute inset-0 z-20 pointer-events-none">
+          <div className="absolute inset-0 z-20 pointer-events-none rounded-lg overflow-hidden">
             {/* Left side triangle fold */}
             <div className="absolute inset-y-0 left-0 w-1/2 bg-[#EFE6D5] border-r border-[#DECFC0]" style={{ clipPath: 'polygon(0 0, 100% 50%, 0 100%)' }} />
             {/* Right side triangle fold */}
             <div className="absolute inset-y-0 right-0 w-1/2 bg-[#EAE0CF] border-l border-[#DECFC0]" style={{ clipPath: 'polygon(100% 0, 0 50%, 100% 100%)' }} />
             {/* Bottom triangle fold */}
-            <div className="absolute inset-x-0 bottom-0 h-3/5 bg-[#E6DA9] border-t border-[#DECFC0]" style={{ clipPath: 'polygon(0 100%, 50% 0, 100% 100%)' }} />
+            <div className="absolute inset-x-0 bottom-0 h-3/5 bg-[#E8DCCB] border-t border-[#DECFC0]" style={{ clipPath: 'polygon(0 100%, 50% 0, 100% 100%)' }} />
           </div>
 
           {/* Top Flap (Animated Fold Open) */}
@@ -93,7 +93,7 @@ export const Envelope = ({ onOpen }) => {
             animate={isOpen ? { rotateX: 180, zIndex: 0 } : { rotateX: 0, zIndex: 30 }}
             transition={{ duration: 0.7, ease: "easeInOut" }}
             style={{ transformOrigin: 'top center' }}
-            className="absolute inset-x-0 top-0 h-1/2 bg-[#F3E7D7] border-b border-[#DFCFC0] shadow-sm z-30"
+            className="absolute inset-x-0 top-0 h-1/2 bg-[#F3E7D7] border-b border-[#DFCFC0] shadow-sm z-30 rounded-t-lg overflow-hidden"
           >
             <div className="w-full h-full" style={{ clipPath: 'polygon(0 0, 50% 100%, 100% 0)' }}>
               <div className="w-full h-full bg-gradient-to-b from-[#F7EFE4] to-[#EBE0CE]" />
@@ -109,16 +109,16 @@ export const Envelope = ({ onOpen }) => {
                 transition={{ duration: 0.3 }}
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40"
               >
-                <div className="w-12 h-12 rounded-full bg-[#D98888] shadow-md border-2 border-[#E8A5A5] flex items-center justify-center text-white transform transition-transform duration-300 group-hover:scale-110">
+                <div className="w-13 h-13 rounded-full bg-[#D98888] shadow-md border-2 border-[#E8A5A5] flex items-center justify-center text-white transform transition-transform duration-300 group-hover:scale-110">
                   <Heart className="w-6 h-6 fill-current text-white/90" />
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Handwritten tag hanging off side */}
-          <div className="absolute -bottom-3 right-4 z-40 bg-[#FFFDF9] px-3 py-1 rounded border border-[#E5D5C5] shadow-sm rotate-[-4deg]">
-            <p className="font-handwriting text-xs text-[#52463F]">For my favorite person ♡</p>
+          {/* Handwritten tag resting cleanly on bottom corner */}
+          <div className="absolute bottom-2 right-3 z-40 bg-[#FFFDF9] px-3.5 py-1.5 rounded-md border border-[#E5D5C5] shadow-md rotate-[-2deg]">
+            <p className="font-handwriting text-sm text-[#52463F] font-medium">For my favorite person ♡</p>
           </div>
 
         </div>
