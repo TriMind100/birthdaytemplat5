@@ -16,18 +16,18 @@ export const Envelope = ({ onOpen }) => {
   };
 
   return (
-    <div className="relative min-h-[90vh] flex flex-col items-center justify-center p-4 z-10 overflow-hidden">
+    <div className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col items-center justify-center p-3 sm:p-4 z-10 overflow-hidden">
       {/* Background prompt message */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="text-center mb-8 max-w-md px-4"
+        className="text-center mb-6 sm:mb-8 max-w-md px-4"
       >
-        <p className="font-handwriting text-2xl md:text-3xl text-[#6B5A50] tracking-wide mb-1">
+        <p className="font-handwriting text-xl sm:text-2xl md:text-3xl text-[#6B5A50] tracking-wide mb-1 leading-snug">
           "You have a little something waiting for you..."
         </p>
-        <p className="font-cursive text-xl text-[#D98888]">
+        <p className="font-cursive text-lg sm:text-xl text-[#D98888]">
           Open it ♡
         </p>
       </motion.div>
@@ -37,7 +37,7 @@ export const Envelope = ({ onOpen }) => {
         onClick={handleOpen}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="relative w-full max-w-[340px] sm:max-w-[420px] aspect-[4/3] cursor-pointer select-none group perspective-1000"
+        className="relative w-[92vw] max-w-[320px] sm:max-w-[420px] aspect-[4/3] cursor-pointer select-none group perspective-1000"
       >
         {/* Shadow underneath envelope */}
         <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[90%] h-8 bg-[#3D342F]/10 blur-xl rounded-full transition-all duration-300 group-hover:bg-[#3D342F]/15 group-hover:w-[95%]" />
@@ -48,18 +48,18 @@ export const Envelope = ({ onOpen }) => {
           {/* Internal Greeting Preview Card sliding up when opened */}
           <motion.div
             initial={{ y: 20, scale: 0.9, opacity: 0 }}
-            animate={isOpen ? { y: -170, scale: 1, opacity: 1 } : { y: 20, scale: 0.9, opacity: 0 }}
+            animate={isOpen ? { y: -135, scale: 0.98, opacity: 1 } : { y: 20, scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.9, ease: [0.34, 1.56, 0.64, 1] }}
-            className="absolute inset-x-4 top-4 bottom-4 bg-[#FFFDF9] rounded-lg p-6 sm:p-8 border border-[#E8DCCB] shadow-md flex flex-col items-center justify-center text-center z-10"
+            className="absolute inset-x-3 sm:inset-x-4 top-3 sm:top-4 bottom-3 sm:bottom-4 bg-[#FFFDF9] rounded-lg p-4 sm:p-8 border border-[#E8DCCB] shadow-md flex flex-col items-center justify-center text-center z-10"
           >
-            <div className="wasi-tape-pink absolute -top-2 left-1/2 -translate-x-1/2 w-20 h-4 bg-[#F3C5C5]/60 border-x border-dashed border-[#D98888]/40" />
-            <span className="font-cursive text-2xl sm:text-3xl text-[#D98888] mb-1">happy ♡</span>
-            <h2 className="font-handwriting text-4xl sm:text-5xl text-[#3D342F] font-bold tracking-wide my-1">Birthday</h2>
-            <p className="font-marker text-base text-[#8C7A6B] mt-1">to my favorite human</p>
+            <div className="wasi-tape-pink absolute -top-2 left-1/2 -translate-x-1/2 w-16 sm:w-20 h-3.5 sm:h-4 bg-[#F3C5C5]/60 border-x border-dashed border-[#D98888]/40" />
+            <span className="font-cursive text-xl sm:text-3xl text-[#D98888] mb-1">happy ♡</span>
+            <h2 className="font-handwriting text-3xl sm:text-5xl text-[#3D342F] font-bold tracking-wide my-1">Birthday</h2>
+            <p className="font-marker text-xs sm:text-base text-[#8C7A6B] mt-1">to my favorite human</p>
           </motion.div>
 
           {/* Flowers emerging from inside envelope */}
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 z-0 pointer-events-none transition-transform duration-500 group-hover:-translate-y-2">
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 z-0 pointer-events-none transition-transform duration-500 group-hover:-translate-y-2 scale-85 sm:scale-100 origin-top">
             <svg width="220" height="130" viewBox="0 0 220 130" fill="none">
               {/* Pink Tulips SVG Illustration */}
               <g stroke="#7C9082" strokeWidth="2" strokeLinecap="round">
@@ -109,16 +109,16 @@ export const Envelope = ({ onOpen }) => {
                 transition={{ duration: 0.3 }}
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40"
               >
-                <div className="w-13 h-13 rounded-full bg-[#D98888] shadow-md border-2 border-[#E8A5A5] flex items-center justify-center text-white transform transition-transform duration-300 group-hover:scale-110">
-                  <Heart className="w-6 h-6 fill-current text-white/90" />
+                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#D98888] shadow-md border-2 border-[#E8A5A5] flex items-center justify-center text-white transform transition-transform duration-300 group-hover:scale-110">
+                  <Heart className="w-5 h-5 sm:w-6 sm:h-6 fill-current text-white/90" />
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
 
           {/* Handwritten tag resting cleanly on bottom corner */}
-          <div className="absolute bottom-2 right-3 z-40 bg-[#FFFDF9] px-3.5 py-1.5 rounded-md border border-[#E5D5C5] shadow-md rotate-[-2deg]">
-            <p className="font-handwriting text-sm text-[#52463F] font-medium">For my favorite person ♡</p>
+          <div className="absolute bottom-2 right-2 sm:right-3 z-40 bg-[#FFFDF9] px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-md border border-[#E5D5C5] shadow-md rotate-[-2deg]">
+            <p className="font-handwriting text-xs sm:text-sm text-[#52463F] font-medium">For my favorite person ♡</p>
           </div>
 
         </div>
