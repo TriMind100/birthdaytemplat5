@@ -10,6 +10,9 @@ import { MemoryTimeline } from './components/MemoryTimeline';
 import { MemoryEnvelopes } from './components/MemoryEnvelopes';
 import { InteractiveLetter } from './components/InteractiveLetter';
 import { FinalSurprise } from './components/FinalSurprise';
+import { ParticleHeartTrail } from './components/ParticleHeartTrail';
+import { InteractiveHeartTree } from './components/InteractiveHeartTree';
+import { AnimatedFlowers } from './components/AnimatedFlowers';
 
 export function App() {
   const [stage, setStage] = useState('envelope'); // 'envelope' | 'card' | 'scrapbook'
@@ -31,6 +34,9 @@ export function App() {
   return (
     <div className="min-h-screen relative font-sans text-[#3D342F] selection:bg-[#F3C5C5]/50 overflow-x-hidden">
       
+      {/* Interactive Cursor & Touch Particle Heart Trail */}
+      <ParticleHeartTrail />
+
       {/* Background Petals & Paper Grain Overlay */}
       <BackgroundDecoration />
 
@@ -76,14 +82,24 @@ export function App() {
               <PhotoGallery galleryItems={cardData.gallery} />
             </section>
 
+            {/* Interactive Heart Tree Animation Section */}
+            <section className="bg-[#FFFDF9]/80 py-6 sm:py-10 border-y border-[#E8DCCB]">
+              <InteractiveHeartTree />
+            </section>
+
             {/* Memory Timeline */}
-            <section className="bg-[#FAF5EB]/50 py-8 sm:py-12 border-y border-[#E8DCCB]">
+            <section className="bg-[#FAF5EB]/50 py-8 sm:py-12 border-b border-[#E8DCCB]">
               <MemoryTimeline memories={cardData.memories} />
             </section>
 
             {/* Reasons You're Special Mini-Envelopes */}
             <section>
               <MemoryEnvelopes specialEnvelopes={cardData.specialEnvelopes} />
+            </section>
+
+            {/* Bioluminescent Animated Flowers Section */}
+            <section className="py-6 sm:py-10">
+              <AnimatedFlowers />
             </section>
 
             {/* Interactive Letter */}
