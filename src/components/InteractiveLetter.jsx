@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, ArrowRight, Heart, Sparkles } from 'lucide-react';
+import { KissSticker, CherrySticker, BowSticker, QuoteSticker } from './Stickers';
 
 export const InteractiveLetter = ({ letter }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -86,7 +87,10 @@ export const InteractiveLetter = ({ letter }) => {
                 ))}
 
                 <div className="pt-6 sm:pt-8 flex flex-wrap items-center justify-between border-t border-dashed border-[#E8DCCB] mt-6 sm:mt-8 gap-2">
-                  <span className="font-cursive text-xl sm:text-2xl text-[#8C7A6B]">written with lots of love ♡</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-cursive text-xl sm:text-2xl text-[#8C7A6B]">written with lots of love ♡</span>
+                    <KissSticker className="w-8 h-6 sm:w-10 sm:h-8" />
+                  </div>
                   <div className="flex items-center gap-1.5 text-[#D98888]">
                     <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
                     <Heart className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
