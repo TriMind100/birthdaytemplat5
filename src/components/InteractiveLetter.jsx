@@ -7,26 +7,26 @@ export const InteractiveLetter = ({ letter }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="w-full max-w-4xl mx-auto py-8 sm:py-16 px-3 sm:px-6">
+    <div className="w-full max-w-4xl mx-auto py-3 xs:py-6 sm:py-12 px-1.5 xs:px-3 sm:px-6">
       
       {/* Outer Card / Envelope Structure */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="relative overflow-hidden py-2"
+        className="relative overflow-hidden py-1 sm:py-2"
       >
         {/* Section Header */}
-        <div className="text-center mb-6 sm:mb-8">
-          <h2 className="font-handwriting text-3xl sm:text-5xl font-bold text-[#3D342F]">
+        <div className="text-center mb-4 sm:mb-8">
+          <h2 className="font-handwriting text-2xl xs:text-3xl sm:text-5xl font-bold text-[#3D342F]">
             {letter.title}
           </h2>
         </div>
 
         {/* Initial Teaser view */}
         {!isOpen && (
-          <div className="text-center py-4 sm:py-8 space-y-4 sm:space-y-6">
-            <p className="font-handwriting text-xl sm:text-3xl text-[#52463F] italic max-w-md mx-auto leading-relaxed px-2">
+          <div className="text-center py-3 sm:py-8 space-y-3 sm:space-y-6">
+            <p className="font-handwriting text-lg xs:text-xl sm:text-3xl text-[#52463F] italic max-w-md mx-auto leading-relaxed px-2">
               "{letter.teaser}"
             </p>
 
@@ -34,7 +34,7 @@ export const InteractiveLetter = ({ letter }) => {
               onClick={() => setIsOpen(true)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 sm:px-8 sm:py-3.5 bg-[#D98888] hover:bg-[#C87777] text-white rounded-full font-handwriting text-xl sm:text-2xl shadow-md transition-all flex items-center gap-2 sm:gap-3 mx-auto cursor-pointer border border-[#FFFDF9]"
+              className="px-5 py-2.5 sm:px-8 sm:py-3.5 bg-[#D98888] hover:bg-[#C87777] text-white rounded-full font-handwriting text-lg xs:text-xl sm:text-2xl shadow-md transition-all flex items-center gap-2 sm:gap-3 mx-auto cursor-pointer border border-[#FFFDF9] touch-manipulation"
             >
               <span>read the letter</span>
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -50,10 +50,10 @@ export const InteractiveLetter = ({ letter }) => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="space-y-4 sm:space-y-6"
+              className="space-y-3 sm:space-y-6"
             >
               {/* Paper Parchment background for letter */}
-              <div className="torn-paper-note p-3.5 xs:p-5 sm:p-14 md:p-16 rounded-xl sm:rounded-2xl bg-[#FFFDF9] border-2 border-[#E8DCCB] shadow-inner space-y-3 sm:space-y-8 relative">
+              <div className="torn-paper-note p-3 xs:p-5 sm:p-10 md:p-16 rounded-xl sm:rounded-2xl bg-[#FFFDF9] border-2 border-[#E8DCCB] shadow-inner space-y-2.5 sm:space-y-8 relative">
                 
                 {/* Vintage Rose Stamp in corner of letter */}
                 <div className="absolute top-4 right-4 opacity-30 pointer-events-none hidden md:block">
@@ -70,11 +70,11 @@ export const InteractiveLetter = ({ letter }) => {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: idx * 0.15 }}
-                    className={`font-handwriting text-lg xs:text-2xl sm:text-3xl md:text-[2rem] leading-relaxed sm:leading-[2.6rem] tracking-wide ${
+                    className={`font-handwriting text-base xs:text-xl sm:text-2xl md:text-[2rem] leading-relaxed sm:leading-[2.6rem] tracking-wide ${
                       idx === 0 
-                        ? 'text-[#D98888] font-bold text-xl xs:text-3xl sm:text-4xl pb-1 sm:pb-2' 
+                        ? 'text-[#D98888] font-bold text-lg xs:text-2xl sm:text-3xl md:text-4xl pb-1 sm:pb-2' 
                         : idx === letter.body.length - 1
-                        ? 'text-[#D98888] font-semibold pt-3 sm:pt-6 text-xl xs:text-3xl sm:text-[2.2rem]'
+                        ? 'text-[#D98888] font-semibold pt-2 sm:pt-6 text-lg xs:text-2xl sm:text-[2.2rem]'
                         : 'text-[#3D342F]'
                     }`}
                   >
@@ -82,10 +82,10 @@ export const InteractiveLetter = ({ letter }) => {
                   </motion.p>
                 ))}
 
-                <div className="pt-6 sm:pt-8 flex flex-wrap items-center justify-between border-t border-dashed border-[#E8DCCB] mt-6 sm:mt-8 gap-2">
+                <div className="pt-4 sm:pt-8 flex flex-wrap items-center justify-between border-t border-dashed border-[#E8DCCB] mt-4 sm:mt-8 gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="font-cursive text-xl sm:text-2xl text-[#8C7A6B]">written with lots of love ♡</span>
-                    <KissSticker className="w-8 h-6 sm:w-10 sm:h-8" />
+                    <span className="font-cursive text-base xs:text-lg sm:text-2xl text-[#8C7A6B]">written with lots of love ♡</span>
+                    <KissSticker className="w-7 h-5 sm:w-10 sm:h-8" />
                   </div>
                   <div className="flex items-center gap-1.5 text-[#D98888]">
                     <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -99,7 +99,7 @@ export const InteractiveLetter = ({ letter }) => {
               <div className="text-center pt-2 sm:pt-4">
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="font-marker text-xs sm:text-sm text-[#8C7A6B] hover:text-[#3D342F] underline cursor-pointer"
+                  className="font-marker text-xs sm:text-sm text-[#8C7A6B] hover:text-[#3D342F] underline cursor-pointer p-2 touch-manipulation"
                 >
                   (Fold letter back up ♡)
                 </button>
