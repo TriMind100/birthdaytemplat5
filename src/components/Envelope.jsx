@@ -35,7 +35,7 @@ export const Envelope = ({ onOpen }) => {
   };
 
   return (
-    <div className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col items-center justify-center p-3 sm:p-4 z-10 overflow-hidden select-none">
+    <div className="relative min-h-[85dvh] sm:min-h-[90dvh] flex flex-col items-center justify-center p-3 sm:p-4 z-10 overflow-hidden select-none">
       
       {/* Heart Formation Animation Overlay triggered upon opening */}
       <AnimatePresence>
@@ -60,7 +60,7 @@ export const Envelope = ({ onOpen }) => {
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         style={{ transformStyle: 'preserve-3d' }}
-        className="relative w-[92vw] max-w-[340px] sm:max-w-[440px] aspect-[4/3] cursor-pointer group perspective-1200"
+        className="relative w-[94vw] max-w-[340px] xs:max-w-[380px] sm:max-w-[440px] aspect-[4/3] cursor-pointer group perspective-1200 touch-manipulation"
       >
         {/* Realistic Deep Contact Shadow & Wine Red Ambient Glow */}
         <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[90%] h-10 bg-[#4A0515]/50 blur-2xl rounded-full transition-all duration-300 group-hover:bg-[#6E0D25]/60 group-hover:w-[96%]" />
@@ -105,7 +105,7 @@ export const Envelope = ({ onOpen }) => {
               style={{ clipPath: 'polygon(0 100%, 50% 0, 100% 100%)' }} 
             />
             {/* Subtle Gold Thread Seam Line on Bottom Fold */}
-            <svg className="absolute inset-x-0 bottom-0 w-full h-[62%] pointer-events-none" viewBox="0 0 440 220">
+            <svg className="absolute inset-x-0 bottom-0 w-full h-[62%] pointer-events-none" viewBox="0 0 440 220" preserveAspectRatio="none">
               <path d="M0,220 L220,0 L440,220" fill="none" stroke="rgba(255,215,0,0.15)" strokeWidth="1" strokeDasharray="3 3" />
             </svg>
           </div>
@@ -124,7 +124,7 @@ export const Envelope = ({ onOpen }) => {
               style={{ clipPath: 'polygon(0 0, 50% 100%, 100% 0)', backfaceVisibility: 'hidden' }}
             >
               {/* Subtle Gold Thread Seam Line along Top Flap Edge */}
-              <svg className="w-full h-full" viewBox="0 0 440 200">
+              <svg className="w-full h-full" viewBox="0 0 440 200" preserveAspectRatio="none">
                 <path d="M0,0 L220,195 L440,0" fill="none" stroke="rgba(255,215,0,0.25)" strokeWidth="1.2" strokeDasharray="4 3" />
               </svg>
             </div>
@@ -144,11 +144,11 @@ export const Envelope = ({ onOpen }) => {
                   <div className="absolute top-1 left-1 inset-0 rounded-full bg-black/50 blur-md pointer-events-none" />
 
                   {/* Organic Dripping 3D Wax Seal Body */}
-                  <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#997A00] via-[#FFD700] to-[#FFE58F] p-[3px] shadow-[0_8px_25px_rgba(0,0,0,0.5),inset_0_2px_4px_rgba(255,255,255,0.8)] border border-[#FFF0F3] flex items-center justify-center text-[#4A0515] transform transition-transform duration-300 group-hover:scale-110">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#997A00] via-[#FFD700] to-[#FFE58F] p-[3px] shadow-[0_8px_25px_rgba(0,0,0,0.5),inset_0_2px_4px_rgba(255,255,255,0.8)] border border-[#FFF0F3] flex items-center justify-center text-[#4A0515] transform transition-transform duration-300 group-hover:scale-110">
                     
                     {/* Embossed Inner Indent */}
                     <div className="w-full h-full rounded-full bg-gradient-to-br from-[#E6B800] via-[#FFD700] to-[#B8860B] shadow-[inset_0_3px_6px_rgba(0,0,0,0.4)] flex items-center justify-center border border-[#997A00]/40">
-                      <Heart className="w-6 h-6 sm:w-7 sm:h-7 fill-current text-[#4A0515] filter drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)]" />
+                      <Heart className="w-5 h-5 sm:w-7 sm:h-7 fill-current text-[#4A0515] filter drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)]" />
                     </div>
 
                   </div>
