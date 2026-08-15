@@ -10,13 +10,24 @@ export const BloomingHeartGarden = () => {
     const ctx = canvas.getContext('2d');
     let animationFrameId;
 
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = 300);
+    const updateCanvasDimensions = () => {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      return { width: rect.width, height: rect.height };
+    };
+
+    let { width, height } = updateCanvasDimensions();
 
     const handleResize = () => {
       if (!canvas) return;
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = 300;
+      ctx.restore();
+      ctx.save();
+      const dims = updateCanvasDimensions();
+      width = dims.width;
+      height = dims.height;
     };
     window.addEventListener('resize', handleResize);
 
@@ -31,25 +42,25 @@ export const BloomingHeartGarden = () => {
       { fill: '#FFB3C1', vein: 'rgba(90, 20, 35, 0.4)' },
     ];
 
-    // Generate 36 tall slender stems across full screen width
-    const stemsCount = Math.max(28, Math.floor(width / 38));
+    // Generate tall slender stems distributed uniformly across full screen width
+    const stemsCount = Math.max(32, Math.floor(width / 32));
     const stems = [];
 
     for (let i = 0; i < stemsCount; i++) {
-      const baseX = (i / stemsCount) * width + (Math.random() * 24 - 12);
-      const stemHeight = Math.random() * 140 + 110; // 110px to 250px tall
-      const flowerSize = Math.random() * 14 + 18; // 18px to 32px heart blooms
+      const baseX = ((i + 0.5) / stemsCount) * width + (Math.random() * 20 - 10);
+      const stemHeightRatio = Math.random() * 0.45 + 0.42; // 42% to 87% of canvas height
+      const flowerSize = Math.random() * 12 + 16; // 16px to 28px heart blooms
       const colorObj = flowerColors[Math.floor(Math.random() * flowerColors.length)];
 
       stems.push({
         x: baseX,
-        targetHeight: stemHeight,
+        targetHeightRatio: stemHeightRatio,
         flowerSize,
         color: colorObj.fill,
         veinColor: colorObj.vein,
         swaySpeed: Math.random() * 0.02 + 0.01,
         swayAmount: Math.random() * 8 + 4,
-        growthDuration: Math.random() * 0.8 + 0.6, // Staggered stem growth
+        growthDuration: Math.random() * 0.8 + 0.6,
         delay: Math.random() * 0.8,
         berries: Array.from({ length: Math.floor(Math.random() * 4) + 2 }).map(() => ({
           heightRatio: Math.random() * 0.7 + 0.2,
@@ -129,9 +140,11 @@ export const BloomingHeartGarden = () => {
       stems.forEach((stem) => {
         if (elapsed < stem.delay) return;
 
+        const targetHeight = stem.targetHeightRatio * height;
+
         // Stem Growth Progress (0 to 1)
         const stemProgress = Math.min(1, (elapsed - stem.delay) / stem.growthDuration);
-        const currentStemHeight = stem.targetHeight * stemProgress;
+        const currentStemHeight = targetHeight * stemProgress;
 
         // Ambient Breeze Sway Physics
         const sway = Math.sin(tick * stem.swaySpeed * 2.5 + stem.x) * stem.swayAmount * stemProgress;
@@ -172,7 +185,7 @@ export const BloomingHeartGarden = () => {
         if (stemProgress >= 0.85) {
           const bloomProgress = Math.min(1, (elapsed - stem.delay - stem.growthDuration * 0.85) * 2.2);
           const easeBloom = 1 - Math.pow(1 - bloomProgress, 3);
-          const swayAngle = (sway / stem.targetHeight) * 0.5;
+          const swayAngle = (sway / targetHeight) * 0.5;
 
           drawVeinedHeart(ctx, topX, topY - stem.flowerSize * 0.6, stem.flowerSize, stem.color, stem.veinColor, swayAngle, easeBloom);
         }
@@ -192,7 +205,7 @@ export const BloomingHeartGarden = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 w-full h-[220px] sm:h-[300px] pointer-events-none z-10 overflow-hidden select-none">
+    <div className="fixed bottom-0 left-0 right-0 w-full h-[140px] xs:h-[180px] sm:h-[240px] md:h-[300px] pointer-events-none z-10 overflow-hidden select-none">
       <canvas ref={canvasRef} className="w-full h-full block" />
     </div>
   );
