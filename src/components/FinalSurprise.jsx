@@ -4,6 +4,209 @@ import confetti from 'canvas-confetti';
 import { Heart, Sparkles, Flame, Gift, RotateCcw } from 'lucide-react';
 import { BearBadgeSticker, QuoteSticker } from './Stickers';
 
+// 2-Tier Vector Birthday Cake with 5 Glowing Candles (matching reference image)
+const TwoTierBirthdayCake = ({ isCandleBlown, onBlowCandle }) => {
+  const candles = [
+    { id: 1, x: 42, y: 56 },   // leftmost rim
+    { id: 2, x: 70, y: 28 },   // inner left
+    { id: 3, x: 100, y: 14 },  // center main candle (taller)
+    { id: 4, x: 130, y: 28 },  // inner right
+    { id: 5, x: 158, y: 56 },  // rightmost rim
+  ];
+
+  return (
+    <div
+      onClick={onBlowCandle}
+      className="relative inline-flex flex-col items-center cursor-pointer group p-2 touch-manipulation select-none"
+    >
+      <svg
+        className="w-56 h-64 xs:w-64 xs:h-72 sm:w-76 sm:h-84 overflow-visible filter drop-shadow-xl"
+        viewBox="0 0 200 220"
+        fill="none"
+      >
+        {/* ── PLATE ── */}
+        <ellipse cx="100" cy="204" rx="92" ry="16" fill="#F0E6D8" stroke="#2B1A1D" strokeWidth="3.5" />
+        <ellipse cx="100" cy="201" rx="88" ry="13" fill="#FFFDF9" stroke="#2B1A1D" strokeWidth="2.5" />
+
+        {/* ── BOTTOM TIER ── */}
+        {/* Bottom Tier Cream Body */}
+        <path d="M 20 120 L 20 186 C 20 202, 180 202, 180 186 L 180 120 C 180 135, 20 135, 20 120 Z" fill="#FFFDF0" stroke="#2B1A1D" strokeWidth="3.5" strokeLinejoin="round" />
+
+        {/* Bottom Pink Base Ribbon */}
+        <path d="M 21 174 C 21 174, 100 188, 179 174 L 179 186 C 179 202, 21 202, 21 186 Z" fill="#E91E63" stroke="#2B1A1D" strokeWidth="3" />
+
+        {/* Bottom Tier Dripping Pink Glaze */}
+        <path
+          d="M 20 120 C 20 135, 180 135, 180 120 
+             C 180 142, 168 148, 160 138
+             C 152 152, 140 155, 132 136
+             C 124 150, 112 156, 104 138
+             C 96 154, 84 158, 76 138
+             C 68 152, 54 152, 46 136
+             C 38 146, 26 142, 20 120 Z"
+          fill="#FF527B"
+          stroke="#2B1A1D"
+          strokeWidth="3.5"
+          strokeLinejoin="round"
+        />
+
+        {/* Candy Sprinkles on Bottom Glaze */}
+        <circle cx="36" cy="128" r="3" fill="#FFD54F" stroke="#2B1A1D" strokeWidth="1.2" />
+        <circle cx="58" cy="138" r="3.2" fill="#4DD0E1" stroke="#2B1A1D" strokeWidth="1.2" />
+        <circle cx="78" cy="144" r="3" fill="#FF4081" stroke="#2B1A1D" strokeWidth="1.2" />
+        <circle cx="122" cy="144" r="3" fill="#4DD0E1" stroke="#2B1A1D" strokeWidth="1.2" />
+        <circle cx="142" cy="138" r="3.2" fill="#FFD54F" stroke="#2B1A1D" strokeWidth="1.2" />
+        <circle cx="168" cy="130" r="3" fill="#FFA726" stroke="#2B1A1D" strokeWidth="1.2" />
+
+        {/* ── TOP TIER ── */}
+        {/* Top Tier Cream Body */}
+        <path d="M 40 68 L 40 118 C 40 132, 160 132, 160 118 L 160 68 C 160 80, 40 80, 40 68 Z" fill="#FFFDF0" stroke="#2B1A1D" strokeWidth="3.5" strokeLinejoin="round" />
+
+        {/* Top Tier Pink Base Ribbon */}
+        <path d="M 41 108 C 41 108, 100 120, 159 108 L 159 118 C 159 132, 41 132, 41 118 Z" fill="#E91E63" stroke="#2B1A1D" strokeWidth="3" />
+
+        {/* Top Tier Top Oval Surface */}
+        <ellipse cx="100" cy="68" rx="60" ry="14" fill="#FFFDF0" stroke="#2B1A1D" strokeWidth="3.5" />
+
+        {/* Top Tier Dripping Pink Glaze */}
+        <path
+          d="M 40 68 C 40 80, 160 80, 160 68 
+             C 160 88, 148 94, 140 84
+             C 132 98, 122 100, 114 86
+             C 106 100, 94 102, 86 86
+             C 78 98, 66 98, 58 84
+             C 50 92, 44 88, 40 68 Z"
+          fill="#FF527B"
+          stroke="#2B1A1D"
+          strokeWidth="3.5"
+          strokeLinejoin="round"
+        />
+
+        {/* Sprinkles on Top Tier Surface */}
+        <circle cx="56" cy="66" r="2.8" fill="#FFA726" stroke="#2B1A1D" strokeWidth="1.2" />
+        <circle cx="76" cy="72" r="3" fill="#FFD54F" stroke="#2B1A1D" strokeWidth="1.2" />
+        <circle cx="92" cy="64" r="2.8" fill="#FF4081" stroke="#2B1A1D" strokeWidth="1.2" />
+        <circle cx="118" cy="74" r="3" fill="#4DD0E1" stroke="#2B1A1D" strokeWidth="1.2" />
+        <circle cx="138" cy="66" r="2.8" fill="#FFD54F" stroke="#2B1A1D" strokeWidth="1.2" />
+
+        {/* Sprinkles on Top Glaze Drips */}
+        <circle cx="68" cy="88" r="2.8" fill="#FFD54F" stroke="#2B1A1D" strokeWidth="1" />
+        <circle cx="100" cy="92" r="3" fill="#4DD0E1" stroke="#2B1A1D" strokeWidth="1" />
+        <circle cx="130" cy="88" r="2.8" fill="#FFA726" stroke="#2B1A1D" strokeWidth="1" />
+
+        {/* ── BIG PINK FRONT RIBBON BOW ── */}
+        <g transform="translate(100, 170)">
+          {/* Left Wing */}
+          <path d="M 0 -3 C -18 -22, -45 -18, -48 0 C -45 18, -18 14, 0 3 Z" fill="#FF4D79" stroke="#2B1A1D" strokeWidth="3.5" strokeLinejoin="round" />
+          <path d="M -12 -2 C -24 -10, -38 -8, -40 0 C -38 8, -24 6, -12 2 Z" fill="#FF85A1" opacity="0.6" />
+
+          {/* Right Wing */}
+          <path d="M 0 -3 C 18 -22, 45 -18, 48 0 C 45 18, 18 14, 0 3 Z" fill="#FF4D79" stroke="#2B1A1D" strokeWidth="3.5" strokeLinejoin="round" />
+          <path d="M 12 -2 C 24 -10, 38 -8, 40 0 C 38 8, 24 6, 12 2 Z" fill="#FF85A1" opacity="0.6" />
+
+          {/* Left Ribbon Tail */}
+          <path d="M -8 4 Q -22 25 -32 30 Q -18 24 -1 10 Z" fill="#E91E63" stroke="#2B1A1D" strokeWidth="3.5" strokeLinejoin="round" />
+
+          {/* Right Ribbon Tail */}
+          <path d="M 8 4 Q 22 25 32 30 Q 18 24 1 10 Z" fill="#E91E63" stroke="#2B1A1D" strokeWidth="3.5" strokeLinejoin="round" />
+
+          {/* Center Knot */}
+          <circle cx="0" cy="0" r="10" fill="#FF4D79" stroke="#2B1A1D" strokeWidth="3.5" />
+          <ellipse cx="-2" cy="-3" rx="3.5" ry="2" fill="#FFFFFF" opacity="0.85" />
+        </g>
+
+        {/* ── 5 BLUE & WHITE STRIPED CANDLES ── */}
+        {candles.map((c) => (
+          <g key={c.id} transform={`translate(${c.x}, ${c.y})`}>
+            {/* Candle Tube */}
+            <rect x="-4.5" y="-30" width="9" height="30" rx="2" fill="#4DD0E1" stroke="#2B1A1D" strokeWidth="2.5" />
+            {/* White Diagonal Stripes */}
+            <path d="M -4.5 -24 L 4.5 -28 L 4.5 -22 L -4.5 -18 Z" fill="#FFFFFF" />
+            <path d="M -4.5 -14 L 4.5 -18 L 4.5 -12 L -4.5 -8 Z" fill="#FFFFFF" />
+            <path d="M -4.5 -4 L 4.5 -8 L 4.5 -2 L -4.5 2 Z" fill="#FFFFFF" />
+            {/* Black Wick */}
+            <line x1="0" y1="-30" x2="0" y2="-36" stroke="#2B1A1D" strokeWidth="2.5" strokeLinecap="round" />
+          </g>
+        ))}
+      </svg>
+
+      {/* Glowing Flames / Smoke Overlay rendered via Framer Motion for authentic light glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        {candles.map((c) => (
+          <div
+            key={c.id}
+            className="absolute transform -translate-x-1/2 -translate-y-full"
+            style={{
+              left: `${(c.x / 200) * 100}%`,
+              top: `${((c.y - 36) / 220) * 100}%`,
+            }}
+          >
+            <AnimatePresence>
+              {!isCandleBlown ? (
+                <motion.div
+                  key={`flame-${c.id}`}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{
+                    opacity: 1,
+                    scale: [1, 1.15, 1],
+                    y: [-1, 1, -1],
+                  }}
+                  exit={{ opacity: 0, scale: 0, y: -15 }}
+                  transition={{
+                    duration: 1.4 + c.id * 0.15,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                  className="relative flex flex-col items-center"
+                >
+                  {/* Glowing Yellowish Radial Light Aura behind Flame */}
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.3, 1],
+                      opacity: [0.6, 0.95, 0.6],
+                    }}
+                    transition={{
+                      duration: 1.2 + c.id * 0.2,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                    className="absolute -inset-3.5 rounded-full bg-gradient-to-r from-[#FFF59D] via-[#FFD54F] to-[#FF9800] blur-md pointer-events-none"
+                  />
+
+                  {/* Flame Tear-drop Body */}
+                  <div className="w-5 h-8 sm:w-6 sm:h-9 relative z-10 filter drop-shadow-[0_0_10px_rgba(255,215,0,0.95)]">
+                    <svg viewBox="0 0 24 36" fill="none" className="w-full h-full">
+                      {/* Outer Flame (Orange Red) */}
+                      <path d="M 12 0 C 18 12 24 20 24 27 C 24 32 18 36 12 36 C 6 36 0 32 0 27 C 0 20 6 12 12 0 Z" fill="#FF4500" stroke="#2B1A1D" strokeWidth="1.5" />
+                      {/* Middle Flame (Bright Yellow) */}
+                      <path d="M 12 6 C 16 15 20 21 20 26 C 20 30 16 33 12 33 C 8 33 4 30 4 26 C 4 21 8 15 12 6 Z" fill="#FFD700" />
+                      {/* Inner Core (White Spark) */}
+                      <path d="M 12 14 C 14 19 16 23 16 26 C 16 28 14 30 12 30 C 10 30 8 28 8 26 C 8 23 10 19 12 14 Z" fill="#FFFFFF" />
+                    </svg>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key={`smoke-${c.id}`}
+                  initial={{ opacity: 0, y: 0, scale: 0.5 }}
+                  animate={{
+                    opacity: [0, 0.8, 0],
+                    y: -35,
+                    x: [(c.id % 2 === 0 ? 5 : -5), (c.id % 2 === 0 ? -8 : 8)],
+                    scale: [0.5, 1.2, 1.8],
+                  }}
+                  transition={{ duration: 1.8, delay: (c.id - 1) * 0.1 }}
+                  className="w-4 h-4 rounded-full bg-stone-400/50 blur-xs"
+                />
+              )}
+            </AnimatePresence>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export const FinalSurprise = ({ 
   finalData, 
   recipient, 
@@ -128,50 +331,9 @@ export const FinalSurprise = ({
                 {isCandleBlown ? "May all your dreams come true!" : "Click or tap the candle flame to blow it out 🎂"}
               </p>
 
-              {/* Cake & Candle Visual */}
-              <div 
-                onClick={handleBlowCandle}
-                className="relative inline-flex flex-col items-center cursor-pointer group p-3 sm:p-4 touch-manipulation"
-              >
-                {/* Flame Container */}
-                <div className="h-9 sm:h-10 flex items-center justify-center relative">
-                  <AnimatePresence>
-                    {!isCandleBlown ? (
-                      <motion.div
-                        key="flame"
-                        initial={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0, y: -20 }}
-                        transition={{ duration: 0.4 }}
-                        className="flex flex-col items-center"
-                      >
-                        <Flame className="w-8 h-8 sm:w-9 sm:h-9 text-[#FF9E00] fill-[#FFD000] animate-pulse" />
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#FFD000]/60 animate-ping absolute -top-1" />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="smoke"
-                        initial={{ opacity: 0, y: 0 }}
-                        animate={{ opacity: [0, 0.7, 0], y: -25, x: [-5, 5, 0] }}
-                        transition={{ duration: 1.5 }}
-                        className="text-xs text-[#8C7A6B] font-marker"
-                      >
-                        ~ puff ~
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                {/* Candle Stick */}
-                <div className="w-3.5 sm:w-4 h-9 sm:h-12 bg-gradient-to-b from-[#F3C5C5] to-[#E8A5A5] rounded-t-xs border border-[#D98888]/40 shadow-xs" />
-
-                {/* Cake Layers */}
-                <div className="w-28 xs:w-32 sm:w-36 h-8 xs:h-9 sm:h-10 bg-[#FFF5F5] rounded-t-lg border-2 border-[#E8DCCB] relative overflow-hidden flex items-center justify-center">
-                  <div className="absolute top-0 inset-x-0 h-2 sm:h-3 bg-[#F3C5C5]/60 rounded-b-md" />
-                  <span className="font-handwriting text-[11px] xs:text-xs text-[#FF4D79] pt-1 sm:pt-2">happy birthday ♡</span>
-                </div>
-                <div className="w-36 xs:w-40 sm:w-44 h-9 xs:h-10 sm:h-12 bg-[#F7ECE1] rounded-b-lg border-2 border-t-0 border-[#E8DCCB] shadow-md flex items-center justify-center">
-                  <span className="font-marker text-xs text-[#8C7A6B]">🎂</span>
-                </div>
+              {/* 2-Tier Birthday Cake with 5 Glowing Candles */}
+              <div className="flex justify-center my-2 sm:my-4">
+                <TwoTierBirthdayCake isCandleBlown={isCandleBlown} onBlowCandle={handleBlowCandle} />
               </div>
 
               {/* Wish Granted Text Reveal */}
