@@ -130,7 +130,7 @@ export const Envelope = ({ onOpen }) => {
             </div>
           </motion.div>
 
-          {/* Hyper-Realistic 3D Melted Gold Wax Seal */}
+          {/* Hyper-Realistic 3D Melted Gold Wax Seal with Soft Yellowish Glow */}
           <AnimatePresence>
             {!isOpen && (
               <motion.div
@@ -140,15 +140,32 @@ export const Envelope = ({ onOpen }) => {
                 className="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-40"
               >
                 <div className="relative group/seal">
+                  {/* Soft Yellowish Radial Light Aura */}
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.16, 1],
+                      opacity: [0.45, 0.75, 0.45],
+                    }}
+                    transition={{
+                      duration: 2.4,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                    className="absolute -inset-3 sm:-inset-4.5 rounded-full bg-gradient-to-r from-[#FFF59D] via-[#FFE082] to-[#FFD54F] blur-lg pointer-events-none"
+                  />
+
                   {/* Real Cast Shadow under Wax Seal */}
                   <div className="absolute top-1 left-1 inset-0 rounded-full bg-black/50 blur-md pointer-events-none" />
 
-                  {/* Organic Dripping 3D Wax Seal Body */}
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#997A00] via-[#FFD700] to-[#FFE58F] p-[3px] shadow-[0_8px_25px_rgba(0,0,0,0.5),inset_0_2px_4px_rgba(255,255,255,0.8)] border border-[#FFF0F3] flex items-center justify-center text-[#4A0515] transform transition-transform duration-300 group-hover:scale-110">
+                  {/* Organic Dripping 3D Wax Seal Body with Warm Yellowish Glow */}
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#997A00] via-[#FFD700] to-[#FFE58F] p-[3px] shadow-[0_0_20px_rgba(255,235,110,0.8),0_0_35px_rgba(255,215,0,0.45),0_6px_20px_rgba(0,0,0,0.4),inset_0_2px_4px_rgba(255,255,255,0.9)] border border-[#FFF8DC] flex items-center justify-center text-[#4A0515] transform transition-transform duration-300 group-hover:scale-110 ring-2 ring-[#FFE082]/70">
                     
                     {/* Embossed Inner Indent */}
-                    <div className="w-full h-full rounded-full bg-gradient-to-br from-[#E6B800] via-[#FFD700] to-[#B8860B] shadow-[inset_0_3px_6px_rgba(0,0,0,0.4)] flex items-center justify-center border border-[#997A00]/40">
-                      <Heart className="w-5 h-5 sm:w-7 sm:h-7 fill-current text-[#4A0515] filter drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)]" />
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-[#E6B800] via-[#FFD700] to-[#B8860B] shadow-[inset_0_3px_6px_rgba(0,0,0,0.4)] flex items-center justify-center border border-[#997A00]/40 relative overflow-hidden">
+                      {/* Shimmer Flare */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent animate-pulse pointer-events-none" />
+
+                      <Heart className="w-5 h-5 sm:w-7 sm:h-7 fill-current text-[#4A0515] relative z-10 filter drop-shadow-[0_0_5px_rgba(255,235,110,0.85)] drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]" />
                     </div>
 
                   </div>
