@@ -103,7 +103,7 @@ export const ScrapbookBook = ({ cardData, onBackToCard, onRestart }) => {
             animate="center"
             exit="exit"
             style={{ transformStyle: 'preserve-3d', transformOrigin: direction > 0 ? 'left center' : 'right center' }}
-            className="w-full bg-[#FFFDF9] rounded-2xl xs:rounded-[2rem] sm:rounded-[2.5rem] p-3 xs:p-5 sm:p-10 border-2 sm:border-4 border-white shadow-[0_15px_40px_rgba(61,52,47,0.1)] relative overflow-hidden"
+            className="w-full min-h-[60vh] sm:min-h-[70vh] flex flex-col justify-center items-center bg-[#FFFDF9] rounded-2xl xs:rounded-[2rem] sm:rounded-[2.5rem] p-3 xs:p-5 sm:p-10 border-2 sm:border-4 border-white shadow-[0_15px_40px_rgba(61,52,47,0.1)] relative overflow-visible"
           >
             {/* Center Spine Crease Effect (Visible on Desktop / Tablet Dual View) */}
             <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-6 sm:w-8 bg-gradient-to-r from-transparent via-[#3D342F]/5 to-transparent pointer-events-none z-20 hidden md:block" />
@@ -112,47 +112,43 @@ export const ScrapbookBook = ({ cardData, onBackToCard, onRestart }) => {
             <div className="washi-tape-pink absolute -top-2 left-3 sm:left-8 w-14 xs:w-16 sm:w-24 h-3 sm:h-4 rotate-[-3deg]" />
             <div className="washi-tape-pink absolute -top-2 right-3 sm:right-8 w-14 xs:w-16 sm:w-24 h-3 sm:h-4 rotate-[3deg]" />
 
-            {/* Active Page Component */}
-            <div className="relative z-10 pb-12 sm:pb-16">
+            {/* Active Page Component Centered */}
+            <div className="relative z-10 w-full flex-1 flex flex-col justify-center items-center pb-12 sm:pb-16">
               {pages[currentPage].component}
             </div>
 
-            {/* Bottom Corner Arrow Buttons */}
-            <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-6 sm:left-8 sm:right-8 z-30 flex items-center justify-between pointer-events-none">
+            {/* Tactile Navigation Buttons Centered Outside the Bottom Border */}
+            <div className="absolute -bottom-5 xs:-bottom-6 sm:-bottom-7 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center gap-3 sm:gap-4 pointer-events-none">
               
-              {/* Previous Button (Bottom Left Corner) */}
-              <div>
-                {currentPage > 0 && (
-                  <motion.button
-                    initial={{ opacity: 0, scale: 0.8, x: -15 }}
-                    animate={{ opacity: 1, scale: 1, x: 0 }}
-                    onClick={handlePrev}
-                    whileHover={{ scale: 1.15, rotate: -6 }}
-                    whileTap={{ scale: 0.88 }}
-                    title="Previous"
-                    className="pointer-events-auto group flex items-center justify-center w-10 h-10 xs:w-11 xs:h-11 sm:w-12 sm:h-12 bg-[#FF4D79] hover:bg-[#E63963] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border-2 sm:border-3 border-white cursor-pointer touch-manipulation"
-                  >
-                    <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform" />
-                  </motion.button>
-                )}
-              </div>
+              {/* Previous Button */}
+              {currentPage > 0 && (
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.8, y: 15 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  onClick={handlePrev}
+                  whileHover={{ scale: 1.15, rotate: -6 }}
+                  whileTap={{ scale: 0.88 }}
+                  title="Previous"
+                  className="pointer-events-auto group flex items-center justify-center w-11 h-11 xs:w-12 xs:h-12 sm:w-14 sm:h-14 bg-[#FF4D79] hover:bg-[#E63963] text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 border-3 sm:border-4 border-white cursor-pointer touch-manipulation ring-2 ring-[#FF758F]/30"
+                >
+                  <ArrowLeft className="w-5 h-5 sm:w-7 sm:h-7 group-hover:-translate-x-0.5 transition-transform" />
+                </motion.button>
+              )}
 
-              {/* Next Button (Bottom Right Corner) */}
-              <div>
-                {canGoNext && (
-                  <motion.button
-                    initial={{ opacity: 0, scale: 0.8, x: 15 }}
-                    animate={{ opacity: 1, scale: 1, x: 0 }}
-                    onClick={handleNext}
-                    whileHover={{ scale: 1.15, rotate: 6 }}
-                    whileTap={{ scale: 0.88 }}
-                    title="Next"
-                    className="pointer-events-auto group flex items-center justify-center w-10 h-10 xs:w-11 xs:h-11 sm:w-12 sm:h-12 bg-[#FF4D79] hover:bg-[#E63963] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border-2 sm:border-3 border-white cursor-pointer touch-manipulation"
-                  >
-                    <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
-                  </motion.button>
-                )}
-              </div>
+              {/* Next Button */}
+              {canGoNext && (
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.8, y: 15 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  onClick={handleNext}
+                  whileHover={{ scale: 1.15, rotate: 6 }}
+                  whileTap={{ scale: 0.88 }}
+                  title="Next"
+                  className="pointer-events-auto group flex items-center justify-center w-11 h-11 xs:w-12 xs:h-12 sm:w-14 sm:h-14 bg-[#FF4D79] hover:bg-[#E63963] text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 border-3 sm:border-4 border-white cursor-pointer touch-manipulation ring-2 ring-[#FF758F]/30"
+                >
+                  <ArrowRight className="w-5 h-5 sm:w-7 sm:h-7 group-hover:translate-x-0.5 transition-transform" />
+                </motion.button>
+              )}
 
             </div>
 
