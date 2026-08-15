@@ -141,7 +141,8 @@
 
 /* Custom Scrollbar for warm feel */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #FDFBF7;
@@ -153,3 +154,18 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #D9C3B3;
 }
+
+/* Hide scrollbar for clean horizontal scroll on mobile */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Mobile Touch & Viewport Utilities */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
