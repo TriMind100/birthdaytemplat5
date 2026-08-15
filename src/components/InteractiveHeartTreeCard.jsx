@@ -2,6 +2,36 @@ import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Heart, Sparkles } from 'lucide-react';
 
+// Movie Style Animated Letter Component for Cinematic Title Reveal
+const CinematicLetter = ({ char, index, delayOffset = 0 }) => {
+  return (
+    <motion.span
+      initial={{
+        opacity: 0,
+        y: 35,
+        scale: 0.6,
+        filter: 'blur(14px)',
+        rotateX: -60,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        filter: 'blur(0px)',
+        rotateX: 0,
+      }}
+      transition={{
+        duration: 0.75,
+        delay: delayOffset + index * 0.08,
+        ease: [0.215, 0.61, 0.355, 1], // Cinematic cubic-bezier
+      }}
+      className="inline-block"
+    >
+      {char}
+    </motion.span>
+  );
+};
+
 export const InteractiveHeartTreeCard = ({ onExplore, recipient }) => {
   const canvasRef = useRef(null);
 
@@ -123,6 +153,45 @@ export const InteractiveHeartTreeCard = ({ onExplore, recipient }) => {
 
     const fallingHearts = [];
 
+    // ───── GRASS & WILDFLOWER DATA (Animated 3-blade grass tufts along ground hill arc) ─────
+    const grassBlades = [];
+    const bladeCount = 140;
+    for (let i = 0; i < bladeCount; i++) {
+      const t = i / (bladeCount - 1);
+      const x = W * 0.04 + t * (W * 0.92);
+      const normX = (x - W * 0.5) / (W * 0.48);
+      if (Math.abs(normX) > 0.96) continue;
+
+      // Top edge of the grassy hill ellipse
+      const groundY = (H - 20) - 35 * Math.sqrt(Math.max(0, 1 - normX * normX));
+
+      const height = 18 + Math.random() * 26;
+      const angle = (Math.random() - 0.5) * 0.5;
+      const color = [
+        '#4CAF50', '#66BB6A', '#388E3C', '#2E7D32', '#7BAE73', '#88B04B', '#5E9057', '#9CD093'
+      ][Math.floor(Math.random() * 8)];
+      
+      const width = 3 + Math.random() * 2.5;
+      const hasFlower = Math.random() < 0.28;
+      const flowerColor = ['#FF4D79', '#FF85A1', '#FF69B4', '#FFD1DC', '#E91E63', '#FF1744'][Math.floor(Math.random() * 6)];
+      const flowerSize = 3 + Math.random() * 2.5;
+
+      grassBlades.push({
+        x,
+        y: groundY + 2, // slightly inset into hill surface
+        height,
+        width,
+        color,
+        angle,
+        swaySpeed: 1.5 + Math.random() * 1.8,
+        swayPhase: Math.random() * Math.PI * 2,
+        hasFlower,
+        flowerColor,
+        flowerSize,
+        isFront: Math.random() > 0.3,
+      });
+    }
+
     // ───── DRAW HELPERS ─────
 
     // Draw a single heart shape
@@ -146,22 +215,85 @@ export const InteractiveHeartTreeCard = ({ onExplore, recipient }) => {
       ctx.restore();
     };
 
-    // Draw the trunk
+    // Draw the trunk & ground
     const drawTrunk = (progress) => {
       ctx.save();
       const p = Math.min(1, progress);
 
-      // ── Ground: simple beige/olive arc ──
+      // 1. Ground: beige base hill
       ctx.fillStyle = '#D4CDAE';
       ctx.beginPath();
       ctx.ellipse(W * 0.5, H - 15, W * 0.55, 55, 0, Math.PI, 0);
       ctx.fill();
 
-      // Grassy tint
+      // 2. Grassy tint hill
       ctx.fillStyle = '#B8C4A0';
       ctx.beginPath();
       ctx.ellipse(W * 0.5, H - 20, W * 0.48, 35, 0, Math.PI, 0);
       ctx.fill();
+
+      // 3. Draw Grass Tufts Function (called AFTER hill fill so grass is completely visible!)
+      const drawGrassLayer = (isFrontLayer) => {
+        ctx.save();
+        grassBlades.forEach((g) => {
+          if (isFrontLayer && !g.isFront) return;
+          if (!isFrontLayer && g.isFront) return;
+
+          ctx.save();
+          ctx.translate(g.x, g.y);
+          
+          const sway = Math.sin(tick * g.swaySpeed + g.swayPhase) * 5;
+          
+          ctx.strokeStyle = g.color;
+          ctx.fillStyle = g.color;
+          ctx.lineWidth = g.width;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+
+          // Main center blade curve
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.quadraticCurveTo(sway * 0.6, -g.height * 0.5, sway + g.angle * 14, -g.height);
+          ctx.stroke();
+
+          // Side blade 1 (left offshoot)
+          ctx.lineWidth = Math.max(1.8, g.width * 0.7);
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.quadraticCurveTo(sway * 0.4 - 4, -g.height * 0.4, sway * 0.7 - 8 + g.angle * 8, -g.height * 0.75);
+          ctx.stroke();
+
+          // Side blade 2 (right offshoot)
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.quadraticCurveTo(sway * 0.4 + 4, -g.height * 0.4, sway * 0.7 + 8 + g.angle * 8, -g.height * 0.7);
+          ctx.stroke();
+
+          // Tiny blooming flower bud on top of main blade
+          if (g.hasFlower) {
+            const fx = sway + g.angle * 14;
+            const fy = -g.height - 3;
+            
+            // Flower petals
+            ctx.fillStyle = g.flowerColor;
+            ctx.beginPath();
+            ctx.arc(fx, fy, g.flowerSize, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Flower center dot
+            ctx.fillStyle = '#FFFDF9';
+            ctx.beginPath();
+            ctx.arc(fx, fy, g.flowerSize * 0.4, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          ctx.restore();
+        });
+        ctx.restore();
+      };
+
+      // ── Back Grass Layer ──
+      drawGrassLayer(false);
 
       // ── Trunk body (slim, tapered) ──
       const topY = trunkBaseY - (trunkBaseY - trunkTopY) * p;
@@ -191,6 +323,9 @@ export const InteractiveHeartTreeCard = ({ onExplore, recipient }) => {
       ctx.fillStyle = '#9E9E9E';
       ctx.beginPath(); ctx.ellipse(trunkBaseX - 55, trunkBaseY + 2, 8, 5, 0, 0, Math.PI * 2); ctx.fill();
       ctx.beginPath(); ctx.ellipse(trunkBaseX + 50, trunkBaseY + 5, 6, 3, 0, 0, Math.PI * 2); ctx.fill();
+
+      // ── Front Grass Layer (wrapping trunk base) ──
+      drawGrassLayer(true);
 
       // ── Branches (dark, visible through canopy) ──
       if (p > 0.3) {
@@ -346,27 +481,53 @@ export const InteractiveHeartTreeCard = ({ onExplore, recipient }) => {
           {/* Left Side: Calligraphic Birthday Wish with Butterfly (Centered on Mobile, Left-aligned on Desktop) */}
           <div className="md:col-span-5 text-center md:text-left flex flex-col items-center md:items-start justify-center z-20 pt-1 pb-2 md:py-0 md:pl-3">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 2.2 }}
               className="relative select-none py-1 sm:py-2 w-full flex flex-col items-center md:items-start"
             >
               {/* Line 1: Happy + Swash + Butterfly */}
               <div className="flex items-center justify-center md:justify-start gap-1 w-full">
-                <span className="font-calligraphy text-4xl xs:text-5xl sm:text-7xl md:text-6xl lg:text-[5.2rem] text-[#2B1A1D] tracking-normal leading-none font-medium">
-                  Happy
+                <span className="font-calligraphy text-4xl xs:text-5xl sm:text-7xl md:text-6xl lg:text-[5.2rem] text-[#2B1A1D] tracking-normal leading-none font-medium flex">
+                  {"Happy".split('').map((char, idx) => (
+                    <CinematicLetter key={idx} char={char} index={idx} delayOffset={0.35} />
+                  ))}
                 </span>
                 {/* Swash line leading to butterfly matching reference */}
                 <div className="flex items-center -ml-1 sm:-ml-3 overflow-visible">
                   <svg className="w-12 h-8 xs:w-16 xs:h-10 sm:w-24 sm:h-14 text-[#2B1A1D] overflow-visible" viewBox="0 0 100 40" fill="none">
-                    {/* Calligraphy tail swash line */}
-                    <path d="M 0 28 Q 35 34, 70 16" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-                    {/* Butterfly Silhouette */}
-                    <g transform="translate(66, 0) scale(0.72)" fill="currentColor">
+                    {/* Calligraphy tail swash line draws itself */}
+                    <motion.path
+                      d="M 0 28 Q 35 34, 70 16"
+                      stroke="currentColor"
+                      strokeWidth="2.8"
+                      strokeLinecap="round"
+                      fill="none"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ pathLength: 1, opacity: 1 }}
+                      transition={{ duration: 0.9, delay: 0.85, ease: "easeInOut" }}
+                    />
+                    {/* Butterfly Silhouette with Wing Flutter */}
+                    <motion.g
+                      initial={{ opacity: 0, scale: 0, x: -15, y: 10 }}
+                      animate={{ opacity: 1, scale: 0.72, x: 0, y: 0 }}
+                      transition={{ duration: 0.7, delay: 1.4, ease: "backOut" }}
+                      transform="translate(66, 0)"
+                      fill="currentColor"
+                    >
                       {/* Upper Wing */}
-                      <path d="M 12 18 C 18 6, 30 2, 32 14 C 34 24, 20 28, 12 20 Z" />
+                      <motion.path
+                        d="M 12 18 C 18 6, 30 2, 32 14 C 34 24, 20 28, 12 20 Z"
+                        animate={{ rotate: [-6, 12, -6] }}
+                        transition={{ duration: 1.3, repeat: Infinity, ease: "easeInOut" }}
+                        style={{ transformOrigin: "12px 20px" }}
+                      />
                       {/* Lower Wing */}
-                      <path d="M 12 20 C 20 25, 26 34, 21 39 C 16 43, 9 34, 12 20 Z" />
+                      <motion.path
+                        d="M 12 20 C 20 25, 26 34, 21 39 C 16 43, 9 34, 12 20 Z"
+                        animate={{ rotate: [6, -10, 6] }}
+                        transition={{ duration: 1.3, repeat: Infinity, ease: "easeInOut" }}
+                        style={{ transformOrigin: "12px 20px" }}
+                      />
                       {/* Wing pattern dots */}
                       <circle cx="24" cy="12" r="1.5" fill="#FFFDF9" />
                       <circle cx="28" cy="17" r="1.2" fill="#FFFDF9" />
@@ -374,15 +535,17 @@ export const InteractiveHeartTreeCard = ({ onExplore, recipient }) => {
                       <ellipse cx="11" cy="20" rx="1.8" ry="9" transform="rotate(-15 11 20)" />
                       <path d="M 12 12 Q 17 5, 22 4" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round" />
                       <path d="M 11 12 Q 13 4, 16 3" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round" />
-                    </g>
+                    </motion.g>
                   </svg>
                 </div>
               </div>
 
               {/* Line 2: Birthday */}
               <div className="md:pl-10 -mt-1 sm:-mt-4 text-center md:text-left">
-                <span className="font-calligraphy text-5xl xs:text-6xl sm:text-8xl md:text-7xl lg:text-[5.2rem] text-[#2B1A1D] tracking-normal leading-none font-medium">
-                  Birthday
+                <span className="font-calligraphy text-5xl xs:text-6xl sm:text-8xl md:text-7xl lg:text-[5.2rem] text-[#2B1A1D] tracking-normal leading-none font-medium flex justify-center md:justify-start">
+                  {"Birthday".split('').map((char, idx) => (
+                    <CinematicLetter key={idx} char={char} index={idx} delayOffset={1.05} />
+                  ))}
                 </span>
               </div>
             </motion.div>
