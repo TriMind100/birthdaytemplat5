@@ -119,19 +119,19 @@ export const FinalSurprise = ({
             <motion.div
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
-              className="inline-block relative z-40 max-w-md w-full"
+              className="inline-block relative z-40 max-w-md w-full px-2"
             >
-              <h4 className="font-handwriting text-3xl sm:text-4xl text-[#FF4D79] font-bold mb-1.5 sm:mb-2">
+              <h4 className="font-handwriting text-2xl xs:text-3xl sm:text-4xl text-[#FF4D79] font-bold mb-1.5 sm:mb-2">
                 {isCandleBlown ? "✨ Wish Granted ✨" : finalData.wishPrompt}
               </h4>
-              <p className="font-marker text-sm sm:text-base text-[#8C7A6B] mb-4 sm:mb-6">
+              <p className="font-marker text-xs xs:text-sm sm:text-base text-[#8C7A6B] mb-3 sm:mb-6">
                 {isCandleBlown ? "May all your dreams come true!" : "Click or tap the candle flame to blow it out 🎂"}
               </p>
 
               {/* Cake & Candle Visual */}
               <div 
                 onClick={handleBlowCandle}
-                className="relative inline-flex flex-col items-center cursor-pointer group py-2 sm:py-4"
+                className="relative inline-flex flex-col items-center cursor-pointer group p-3 sm:p-4 touch-manipulation"
               >
                 {/* Flame Container */}
                 <div className="h-9 sm:h-10 flex items-center justify-center relative">
@@ -162,14 +162,14 @@ export const FinalSurprise = ({
                 </div>
 
                 {/* Candle Stick */}
-                <div className="w-3.5 sm:w-4 h-10 sm:h-12 bg-gradient-to-b from-[#F3C5C5] to-[#E8A5A5] rounded-t-xs border border-[#D98888]/40 shadow-xs" />
+                <div className="w-3.5 sm:w-4 h-9 sm:h-12 bg-gradient-to-b from-[#F3C5C5] to-[#E8A5A5] rounded-t-xs border border-[#D98888]/40 shadow-xs" />
 
                 {/* Cake Layers */}
-                <div className="w-32 sm:w-36 h-9 sm:h-10 bg-[#FFF5F5] rounded-t-lg border-2 border-[#E8DCCB] relative overflow-hidden flex items-center justify-center">
-                  <div className="absolute top-0 inset-x-0 h-2.5 sm:h-3 bg-[#F3C5C5]/60 rounded-b-md" />
-                  <span className="font-handwriting text-xs text-[#FF4D79] pt-1.5 sm:pt-2">happy birthday ♡</span>
+                <div className="w-28 xs:w-32 sm:w-36 h-8 xs:h-9 sm:h-10 bg-[#FFF5F5] rounded-t-lg border-2 border-[#E8DCCB] relative overflow-hidden flex items-center justify-center">
+                  <div className="absolute top-0 inset-x-0 h-2 sm:h-3 bg-[#F3C5C5]/60 rounded-b-md" />
+                  <span className="font-handwriting text-[11px] xs:text-xs text-[#FF4D79] pt-1 sm:pt-2">happy birthday ♡</span>
                 </div>
-                <div className="w-40 sm:w-44 h-10 sm:h-12 bg-[#F7ECE1] rounded-b-lg border-2 border-t-0 border-[#E8DCCB] shadow-md flex items-center justify-center">
+                <div className="w-36 xs:w-40 sm:w-44 h-9 xs:h-10 sm:h-12 bg-[#F7ECE1] rounded-b-lg border-2 border-t-0 border-[#E8DCCB] shadow-md flex items-center justify-center">
                   <span className="font-marker text-xs text-[#8C7A6B]">🎂</span>
                 </div>
               </div>
@@ -181,10 +181,10 @@ export const FinalSurprise = ({
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
-                    className="mt-4 sm:mt-6"
+                    className="mt-3 sm:mt-6"
                   >
-                    <div className="p-3.5 sm:p-4 rounded-xl bg-[#FFF0F3] border border-[#FFCCD5]">
-                      <p className="font-handwriting text-2xl sm:text-3xl text-[#FF4D79] font-bold">
+                    <div className="p-3 sm:p-4 rounded-xl bg-[#FFF0F3] border border-[#FFCCD5]">
+                      <p className="font-handwriting text-xl xs:text-2xl sm:text-3xl text-[#FF4D79] font-bold">
                         "{finalData.wishGranted}"
                       </p>
                     </div>
@@ -203,7 +203,7 @@ export const FinalSurprise = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-4 sm:space-y-6 text-center py-2 sm:py-6 max-w-2xl mx-auto"
+            className="space-y-3 sm:space-y-6 text-center py-2 sm:py-6 max-w-2xl mx-auto px-1"
           >
             {/* Animated Heart Balloons */}
             <motion.div
@@ -218,27 +218,27 @@ export const FinalSurprise = ({
               <img
                 src="/heart-balloons.png"
                 alt="Heart balloons"
-                className="w-32 h-32 xs:w-40 xs:h-40 sm:w-52 sm:h-52 object-contain"
+                className="w-28 h-28 xs:w-36 xs:h-36 sm:w-52 sm:h-52 object-contain"
               />
             </motion.div>
 
-            <h2 className="font-calligraphy text-4xl xs:text-5xl sm:text-7xl font-bold text-[#2B1A1D] break-words px-1">
+            <h2 className="font-calligraphy text-3xl xs:text-4xl sm:text-6xl md:text-7xl font-bold text-[#2B1A1D] break-words px-1">
               Happy Birthday! 💖
             </h2>
 
-            <p className="font-handwriting text-lg xs:text-xl sm:text-3xl text-[#52463F] leading-relaxed italic max-w-lg mx-auto pt-1 sm:pt-2 px-2">
+            <p className="font-handwriting text-base xs:text-lg sm:text-2xl md:text-3xl text-[#52463F] leading-relaxed italic max-w-lg mx-auto pt-1 sm:pt-2 px-2">
               "{finalData.message}"
             </p>
 
             {/* Restart Icon Button */}
             {onRestart && (
-              <div className="pt-4">
+              <div className="pt-3 sm:pt-4">
                 <motion.button
                   onClick={onRestart}
                   whileHover={{ scale: 1.15, rotate: -360 }}
                   whileTap={{ scale: 0.88 }}
                   title="Start from beginning"
-                  className="w-11 h-11 sm:w-12 sm:h-12 bg-[#FF4D79] hover:bg-[#E63963] text-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center mx-auto border-2 border-white cursor-pointer"
+                  className="w-10 h-10 xs:w-11 xs:h-11 sm:w-12 sm:h-12 bg-[#FF4D79] hover:bg-[#E63963] text-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center mx-auto border-2 border-white cursor-pointer touch-manipulation"
                 >
                   <RotateCcw className="w-5 h-5 sm:w-6 sm:h-6" />
                 </motion.button>
