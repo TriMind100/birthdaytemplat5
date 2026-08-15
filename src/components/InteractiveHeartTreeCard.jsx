@@ -303,11 +303,11 @@ export const InteractiveHeartTreeCard = ({ onExplore, recipient }) => {
 
     animationFrameId = requestAnimationFrame(render);
 
-    // Tap interaction
-    const onClick = (e) => {
+    // Tap/Touch interaction
+    const handleInteract = (e) => {
       const rect = canvas.getBoundingClientRect();
-      const cx = e.clientX ?? e.touches?.[0]?.clientX ?? 0;
-      const cy = e.clientY ?? e.touches?.[0]?.clientY ?? 0;
+      const cx = e.clientX ?? e.touches?.[0]?.clientX ?? (e.changedTouches?.[0]?.clientX ?? 0);
+      const cy = e.clientY ?? e.touches?.[0]?.clientY ?? (e.changedTouches?.[0]?.clientY ?? 0);
       if (!cx && !cy) return;
       const mx = ((cx - rect.left) / rect.width) * W;
       const my = ((cy - rect.top) / rect.height) * H;
@@ -327,38 +327,38 @@ export const InteractiveHeartTreeCard = ({ onExplore, recipient }) => {
       }
     };
 
-    canvas.addEventListener('click', onClick);
+    canvas.addEventListener('pointerdown', handleInteract);
     return () => {
       cancelAnimationFrame(animationFrameId);
-      canvas.removeEventListener('click', onClick);
+      canvas.removeEventListener('pointerdown', handleInteract);
     };
   }, []);
 
   return (
-    <div className="min-h-[88vh] flex flex-col items-center justify-center p-3 sm:p-6 z-10 select-none">
+    <div className="min-h-[85dvh] flex flex-col items-center justify-center p-2.5 xs:p-4 sm:p-6 z-10 select-none">
       <motion.div
         initial={{ opacity: 0, scale: 0.92, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
-        className="relative w-full max-w-4xl bg-[#FFFDF9] rounded-2xl xs:rounded-[2rem] sm:rounded-[2.5rem] p-4 xs:p-6 sm:p-10 lg:p-12 shadow-2xl border-4 sm:border-[10px] border-white ring-4 ring-[#FAD4D4]/50 overflow-hidden"
+        className="relative w-full max-w-4xl bg-[#FFFDF9] rounded-2xl xs:rounded-[2rem] sm:rounded-[2.5rem] p-4 xs:p-6 sm:p-8 lg:p-12 pb-6 sm:pb-10 shadow-2xl border-2 xs:border-4 sm:border-[10px] border-white ring-4 ring-[#FAD4D4]/50 overflow-visible"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 xs:gap-6 lg:gap-8 items-center min-h-[320px] sm:min-h-[380px]">
-          {/* Left Side: Calligraphic Birthday Wish with Butterfly */}
-          <div className="lg:col-span-5 text-left flex flex-col justify-center pl-1 sm:pl-3 z-20">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-2 xs:gap-4 lg:gap-8 items-center min-h-[300px] sm:min-h-[380px]">
+          {/* Left Side: Calligraphic Birthday Wish with Butterfly (Centered on Mobile, Left-aligned on Desktop) */}
+          <div className="md:col-span-5 text-center md:text-left flex flex-col items-center md:items-start justify-center z-20 pt-1 pb-2 md:py-0 md:pl-3">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative select-none py-1 sm:py-2"
+              className="relative select-none py-1 sm:py-2 w-full flex flex-col items-center md:items-start"
             >
               {/* Line 1: Happy + Swash + Butterfly */}
-              <div className="flex items-center gap-1">
-                <span className="font-calligraphy text-5xl xs:text-6xl sm:text-8xl md:text-[5.2rem] text-[#2B1A1D] tracking-normal leading-none font-medium">
+              <div className="flex items-center justify-center md:justify-start gap-1 w-full">
+                <span className="font-calligraphy text-4xl xs:text-5xl sm:text-7xl md:text-6xl lg:text-[5.2rem] text-[#2B1A1D] tracking-normal leading-none font-medium">
                   Happy
                 </span>
                 {/* Swash line leading to butterfly matching reference */}
-                <div className="flex-1 flex items-center -ml-2 sm:-ml-3 overflow-visible">
-                  <svg className="w-16 h-10 sm:w-24 sm:h-14 text-[#2B1A1D] overflow-visible" viewBox="0 0 100 40" fill="none">
+                <div className="flex items-center -ml-1 sm:-ml-3 overflow-visible">
+                  <svg className="w-12 h-8 xs:w-16 xs:h-10 sm:w-24 sm:h-14 text-[#2B1A1D] overflow-visible" viewBox="0 0 100 40" fill="none">
                     {/* Calligraphy tail swash line */}
                     <path d="M 0 28 Q 35 34, 70 16" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" fill="none" />
                     {/* Butterfly Silhouette */}
@@ -379,9 +379,9 @@ export const InteractiveHeartTreeCard = ({ onExplore, recipient }) => {
                 </div>
               </div>
 
-              {/* Line 2: Birthday (Offset to the right with calligraphic loop) */}
-              <div className="pl-6 sm:pl-10 -mt-2 sm:-mt-4">
-                <span className="font-calligraphy text-6xl xs:text-7xl sm:text-8xl md:text-[5.2rem] text-[#2B1A1D] tracking-normal leading-none font-medium">
+              {/* Line 2: Birthday */}
+              <div className="md:pl-10 -mt-1 sm:-mt-4 text-center md:text-left">
+                <span className="font-calligraphy text-5xl xs:text-6xl sm:text-8xl md:text-7xl lg:text-[5.2rem] text-[#2B1A1D] tracking-normal leading-none font-medium">
                   Birthday
                 </span>
               </div>
@@ -389,7 +389,7 @@ export const InteractiveHeartTreeCard = ({ onExplore, recipient }) => {
           </div>
 
           {/* Right Side: Heart Tree Canvas */}
-          <div className="lg:col-span-7 relative w-full flex items-center justify-center cursor-pointer" style={{ aspectRatio: '6/7' }}>
+          <div className="md:col-span-7 relative w-full flex items-center justify-center cursor-pointer max-h-[42vh] xs:max-h-[48vh] sm:max-h-[55vh] md:max-h-none" style={{ aspectRatio: '6/7' }}>
             <canvas
               ref={canvasRef}
               className="w-full h-full touch-none"
@@ -397,24 +397,25 @@ export const InteractiveHeartTreeCard = ({ onExplore, recipient }) => {
           </div>
         </div>
 
-        {/* Small Cute Next Sign Button in Bottom Right Corner */}
+        {/* Tactile Next Button Centered Outside the Bottom Border */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8, x: 15 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
+          initial={{ opacity: 0, scale: 0.8, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.2 }}
-          className="absolute bottom-4 right-4 sm:bottom-5 sm:right-6 z-30"
+          className="absolute -bottom-5 xs:-bottom-6 sm:-bottom-7 left-1/2 -translate-x-1/2 z-30"
         >
           <motion.button
             onClick={onExplore}
             whileHover={{ scale: 1.15, rotate: 6 }}
             whileTap={{ scale: 0.88 }}
             title="Next"
-            className="group flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 bg-[#FF4D79] hover:bg-[#E63963] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border-2 sm:border-3 border-white cursor-pointer"
+            className="group flex items-center justify-center w-11 h-11 xs:w-12 xs:h-12 sm:w-14 sm:h-14 bg-[#FF4D79] hover:bg-[#E63963] text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 border-3 sm:border-4 border-white cursor-pointer touch-manipulation ring-2 ring-[#FF758F]/30"
           >
-            <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight className="w-5 h-5 sm:w-7 sm:h-7 group-hover:translate-x-0.5 transition-transform" />
           </motion.button>
         </motion.div>
       </motion.div>
     </div>
   );
 };
+
