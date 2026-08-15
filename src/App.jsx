@@ -30,7 +30,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen relative font-sans text-[#3D342F] selection:bg-[#F3C5C5]/50 overflow-x-hidden">
+    <div className="min-h-screen relative font-sans text-[#3D342F] selection:bg-[#F3C5C5]/50 overflow-x-hidden flex flex-col justify-center items-center">
       
       {/* Interactive Cursor & Touch Particle Heart Trail */}
       <ParticleHeartTrail />
@@ -41,8 +41,8 @@ export function App() {
       {/* Floating Ambient Music Control (♫) */}
       <MusicControl audioUrl={cardData.music.audioUrl} />
 
-      {/* Main Content View Switcher */}
-      <main className="relative z-10">
+      {/* Main Content View Switcher Centered Vertically & Horizontally */}
+      <main className="relative z-10 w-full min-h-screen flex flex-col justify-center items-center py-4 sm:py-8 px-2 sm:px-4">
         <AnimatePresence mode="wait">
           {/* Stage 1: Envelope Opening Experience */}
           {stage === 'envelope' && (
@@ -51,6 +51,7 @@ export function App() {
               initial={{ opacity: 1 }}
               exit={{ opacity: 0, scale: 1.05 }}
               transition={{ duration: 0.6 }}
+              className="w-full flex justify-center items-center my-auto"
             >
               <Envelope onOpen={handleEnvelopeOpened} />
             </motion.div>
@@ -64,6 +65,7 @@ export function App() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.7, ease: [0.34, 1.56, 0.64, 1] }}
+              className="w-full flex justify-center items-center my-auto"
             >
               <InteractiveHeartTreeCard 
                 recipient={cardData.recipient} 
@@ -80,6 +82,7 @@ export function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
+              className="w-full flex justify-center items-center my-auto"
             >
               <ScrapbookBook 
                 cardData={cardData} 
@@ -89,7 +92,6 @@ export function App() {
             </motion.div>
           )}
         </AnimatePresence>
-
       </main>
     </div>
   );
