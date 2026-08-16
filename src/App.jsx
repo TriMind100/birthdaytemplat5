@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cardData } from './data/cardData';
 import { BackgroundDecoration } from './components/BackgroundDecoration';
 import { MusicControl } from './components/MusicControl';
+import { BrandingBadge } from './components/BrandingBadge';
 import { Envelope } from './components/Envelope';
 import { BirthdayCard } from './components/BirthdayCard';
 import { PhotoGallery } from './components/PhotoGallery';
@@ -40,6 +41,9 @@ export function App() {
 
       {/* Floating Ambient Music Control (♫) */}
       <MusicControl audioUrl={cardData.music.audioUrl} />
+
+      {/* Floating Branding Badge (kolkode.in) */}
+      <BrandingBadge />
 
       {/* Main Content View Switcher Centered Vertically & Horizontally */}
       <main className="relative z-10 w-full min-h-screen flex flex-col justify-center items-center py-4 sm:py-8 px-2 sm:px-4">
