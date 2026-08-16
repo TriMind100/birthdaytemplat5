@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 
 export const BrandingBadge = () => {
   return (
@@ -13,11 +13,6 @@ export const BrandingBadge = () => {
         whileTap={{ scale: 0.94 }}
         className="group relative flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full bg-[#FFFDF9]/90 backdrop-blur-md border border-[#F0DED0] text-[#52463F] shadow-lg hover:shadow-xl transition-all duration-300 ring-2 ring-[#E8D9C8]/40 hover:ring-[#FF8FAB]/60 select-none text-decoration-none no-underline"
       >
-        {/* Subtle sparkle icon with rotation on hover */}
-        <span className="text-[#FF4D79] text-xs transition-transform duration-300 group-hover:rotate-45">
-          ✨
-        </span>
-
         {/* Text */}
         <div className="flex items-center gap-1 font-sans">
           <span className="text-[10px] sm:text-[11px] text-[#8C7A6B] font-medium tracking-wide">
