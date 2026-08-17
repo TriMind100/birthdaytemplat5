@@ -750,53 +750,132 @@ export const FinalSurprise = ({
           </motion.div>
         )}
 
-        {/* STEP 2: The Last Happy Birthday Page */}
+        {/* STEP 2: The Last Happy Birthday Page - CINEMATIC GLOWING CELEBRATION */}
         {step === 'final' && (
           <motion.div
             key="final"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-3 sm:space-y-6 text-center py-2 sm:py-6 max-w-2xl mx-auto px-1"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="relative space-y-4 sm:space-y-6 text-center py-4 sm:py-8 max-w-2xl mx-auto px-2 select-none overflow-visible"
           >
-            {/* Animated Heart Balloons */}
-            <motion.div
-              className="flex justify-center"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: [0, -8, 0] }}
-              transition={{
-                opacity: { duration: 0.6 },
-                y: { duration: 3, repeat: Infinity, ease: 'easeInOut' }
-              }}
-            >
-              <img
-                src="/heart-balloons.png"
-                alt="Heart balloons"
-                className="w-28 h-28 xs:w-36 xs:h-36 sm:w-52 sm:h-52 object-contain"
+            {/* Cinematic Ambient Glowing Auroras in Background */}
+            <div className="absolute inset-0 -z-10 pointer-events-none flex items-center justify-center">
+              <motion.div
+                animate={{
+                  scale: [1, 1.25, 1],
+                  opacity: [0.35, 0.65, 0.35],
+                }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+                className="w-72 h-72 sm:w-96 sm:h-96 rounded-full blur-3xl pointer-events-none"
+                style={{
+                  background: 'radial-gradient(circle, rgba(255,105,180,0.5) 0%, rgba(255,182,193,0.3) 40%, rgba(255,215,0,0.15) 70%, transparent 80%)',
+                }}
               />
+            </div>
+
+            {/* Floating Sparkles & Heart Embers */}
+            <div className="absolute inset-0 pointer-events-none -z-5 overflow-visible">
+              {[
+                { top: '5%', left: '8%', size: 'text-amber-400 text-lg', delay: 0 },
+                { top: '15%', right: '10%', size: 'text-pink-400 text-xl', delay: 0.5 },
+                { top: '50%', left: '4%', size: 'text-rose-400 text-base', delay: 1.0 },
+                { top: '65%', right: '6%', size: 'text-amber-300 text-2xl', delay: 0.3 },
+                { top: '85%', left: '12%', size: 'text-pink-500 text-lg', delay: 0.8 },
+                { top: '90%', right: '14%', size: 'text-purple-400 text-base', delay: 1.2 },
+              ].map((s, idx) => (
+                <motion.div
+                  key={idx}
+                  className={`absolute ${s.size}`}
+                  style={{ top: s.top, left: s.left, right: s.right }}
+                  animate={{
+                    y: [-10, 10, -10],
+                    opacity: [0.3, 1, 0.3],
+                    scale: [0.8, 1.2, 0.8],
+                  }}
+                  transition={{
+                    duration: 3 + idx * 0.4,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                    delay: s.delay,
+                  }}
+                >
+                  ✨
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Heartfelt Emotional Message with Soft Glowing Glass Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
+              className="max-w-xl mx-auto px-2 pt-4 sm:pt-8"
+            >
+              <div 
+                className="relative rounded-2xl p-4 sm:p-6 border-2 border-[#FFCCD5]/80 shadow-[0_10px_35px_rgba(255,105,180,0.15)] overflow-hidden"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 245, 247, 0.95) 100%)',
+                  backdropFilter: 'blur(10px)',
+                }}
+              >
+                {/* Glowing border highlight */}
+                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#FF6584] to-transparent opacity-80" />
+
+                <p className="font-handwriting text-lg xs:text-xl sm:text-2xl md:text-3xl text-[#3D342F] leading-relaxed italic font-medium">
+                  "Thank you for being with me through every laugh, every tear, and all the chaotic late-night conversations."
+                </p>
+
+                <div className="my-2 sm:my-3 w-16 h-0.5 bg-gradient-to-r from-transparent via-[#FF85A1] to-transparent mx-auto opacity-60" />
+
+                <p className="font-handwriting text-base xs:text-lg sm:text-xl md:text-2xl text-[#6B5B52] leading-relaxed">
+                  "{finalData.message}"
+                </p>
+              </div>
             </motion.div>
 
-            <h2 className="font-calligraphy text-3xl xs:text-4xl sm:text-6xl md:text-7xl font-bold text-[#2B1A1D] break-words px-1">
-              Happy Birthday! ðŸ’–
-            </h2>
+            {/* Line 4: Glowing Sign-off */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 2.3 }}
+              className="pt-1 flex items-center justify-center gap-2"
+            >
+              <span className="font-cursive text-base xs:text-lg sm:text-2xl text-[#FF4D79] font-bold drop-shadow-[0_0_12px_rgba(255,77,121,0.5)]">
+                Forever grateful for you ♡
+              </span>
+            </motion.div>
 
-            <p className="font-handwriting text-base xs:text-lg sm:text-2xl md:text-3xl text-[#52463F] leading-relaxed italic max-w-lg mx-auto pt-1 sm:pt-2 px-2">
-              "{finalData.message}"
-            </p>
-
-            {/* Restart Icon Button */}
+            {/* Glowing Cinematic Replay Icon Button */}
             {onRestart && (
-              <div className="pt-3 sm:pt-4">
-                <motion.button
-                  onClick={onRestart}
-                  whileHover={{ scale: 1.15, rotate: -360 }}
-                  whileTap={{ scale: 0.88 }}
-                  title="Start from beginning"
-                  className="w-10 h-10 xs:w-11 xs:h-11 sm:w-12 sm:h-12 bg-[#FF4D79] hover:bg-[#E63963] text-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center mx-auto border-2 border-white cursor-pointer touch-manipulation"
-                >
-                  <RotateCcw className="w-5 h-5 sm:w-6 sm:h-6" />
-                </motion.button>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.85, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 2.8 }}
+                className="pt-3 sm:pt-5 flex justify-center"
+              >
+                <div className="relative inline-block">
+                  {/* Pulsing Glowing Halo Ring */}
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.3, 1],
+                      opacity: [0.35, 0.7, 0.35],
+                    }}
+                    transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+                    className="absolute -inset-2 bg-gradient-to-r from-[#FF6B93] via-[#FF4D79] to-[#FFA07A] rounded-full blur-md -z-10"
+                  />
+
+                  <motion.button
+                    onClick={onRestart}
+                    whileHover={{ scale: 1.15, rotate: -360, boxShadow: '0 10px 25px rgba(255, 77, 121, 0.5)' }}
+                    whileTap={{ scale: 0.88 }}
+                    title="Replay from the beginning"
+                    className="w-11 h-11 xs:w-12 xs:h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-[#FF4D79] via-[#FF6584] to-[#FF85A1] text-white rounded-full shadow-lg border-2 border-white flex items-center justify-center cursor-pointer touch-manipulation group"
+                  >
+                    <RotateCcw className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-rotate-180 transition-transform duration-500" />
+                  </motion.button>
+                </div>
+              </motion.div>
             )}
           </motion.div>
         )}
