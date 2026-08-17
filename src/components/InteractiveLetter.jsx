@@ -1,189 +1,91 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles, Mail, ArrowRight, ChevronUp, ChevronDown } from 'lucide-react';
-import { KissSticker, CherrySticker } from './Stickers';
+import { Heart, RefreshCw } from 'lucide-react';
+import confetti from 'canvas-confetti';
+import { KissSticker, CherrySticker, BowSticker } from './Stickers';
 
-// Animated Tulips Group matching reference frame bottom corners
-const TulipGroup = ({ position = 'left' }) => {
-  const isLeft = position === 'left';
+// Floating Illustrated Hearts matching reference image with safe responsive margins
+const FloatingDoodleHearts = () => {
+  const hearts = [
+    { top: '-10%', left: '4%', size: 'w-6 h-6 xs:w-7 xs:h-7 sm:w-9 sm:h-9', rot: -14, delay: 0, dur: 3.2 },
+    { top: '-14%', right: '6%', size: 'w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8', rot: 12, delay: 0.4, dur: 3.6 },
+    { top: '25%', left: '-3%', size: 'w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7', rot: -18, delay: 0.8, dur: 4.0 },
+    { top: '20%', right: '-3%', size: 'w-6 h-6 xs:w-7 xs:h-7 sm:w-9 sm:h-9', rot: 16, delay: 0.2, dur: 3.4 },
+    { bottom: '10%', left: '-2%', size: 'w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6', rot: -10, delay: 0.6, dur: 3.8 },
+    { bottom: '12%', right: '-2%', size: 'w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7', rot: 12, delay: 1.0, dur: 3.5 },
+  ];
+
   return (
-    <div className={`absolute bottom-0 ${isLeft ? 'left-1 xs:left-2 sm:left-4' : 'right-1 xs:right-2 sm:right-4'} z-30 pointer-events-none flex items-end gap-0.5 sm:gap-1`}>
-      {[
-        { scale: 0.85, delay: 0, rot: isLeft ? -5 : 3 },
-        { scale: 1, delay: 0.25, rot: isLeft ? 2 : -4 },
-        { scale: 0.9, delay: 0.5, rot: isLeft ? -3 : 4 },
-      ].map((t, idx) => (
+    <div className="absolute inset-0 pointer-events-none z-40 overflow-visible">
+      {hearts.map((h, i) => (
         <motion.div
-          key={idx}
-          animate={{ rotate: [t.rot, t.rot + (isLeft ? 4 : -4), t.rot] }}
-          transition={{ duration: 3.2 + idx * 0.4, repeat: Infinity, ease: 'easeInOut', delay: t.delay }}
-          className="origin-bottom"
-          style={{ transform: `scale(${t.scale})` }}
-        >
-          <svg className="w-7 h-10 xs:w-9 xs:h-12 sm:w-11 sm:h-15 overflow-visible" viewBox="0 0 40 60">
-            {/* Green Stem */}
-            <path d="M 20 60 Q 18 36 20 20" stroke="#7BAE73" strokeWidth="3.5" strokeLinecap="round" fill="none" />
-            {/* Leaves */}
-            <path d="M 20 48 Q 6 38 3 24 Q 12 34 20 44" fill="#9CD093" stroke="#5E9057" strokeWidth="1.5" strokeLinejoin="round" />
-            <path d="M 20 44 Q 34 36 37 22 Q 28 32 20 40" fill="#9CD093" stroke="#5E9057" strokeWidth="1.5" strokeLinejoin="round" />
-
-            {/* Tulip Cup Petals */}
-            <g transform="translate(0, 0)">
-              {/* Back Petals */}
-              <path d="M 11 22 C 7 14 12 5 20 12 C 28 5 33 14 29 22 C 25 26 15 26 11 22 Z" fill="#FF85A1" stroke="#2B1A1D" strokeWidth="1.6" strokeLinejoin="round" />
-              {/* Left Wing Petal */}
-              <path d="M 9 20 C 5 10 13 3 18 14 C 14 22 9 22 9 20 Z" fill="#FF9EAA" stroke="#2B1A1D" strokeWidth="1.4" strokeLinejoin="round" />
-              {/* Right Wing Petal */}
-              <path d="M 31 20 C 35 10 27 3 22 14 C 26 22 31 22 31 20 Z" fill="#FF6584" stroke="#2B1A1D" strokeWidth="1.4" strokeLinejoin="round" />
-              {/* Main Center Petal */}
-              <path d="M 13 23 C 11 13 20 4 20 4 C 20 4 29 13 27 23 C 23 27 17 27 13 23 Z" fill="#FF4D79" stroke="#2B1A1D" strokeWidth="1.6" strokeLinejoin="round" />
-            </g>
-          </svg>
-        </motion.div>
-      ))}
-    </div>
-  );
-};
-
-// Animated Paper Airplane & Looping Dashed Flight Path
-const PaperAirplane = () => {
-  return (
-    <div className="absolute top-2 right-2 xs:top-4 xs:right-5 sm:top-6 sm:right-8 z-20 pointer-events-none">
-      <div className="relative">
-        {/* Floating Paper Airplane Animation */}
-        <motion.div
-          animate={{ y: [0, -5, 0], rotate: [0, 4, 0] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="relative z-10"
-        >
-          <svg className="w-11 h-9 xs:w-14 xs:h-11 sm:w-18 sm:h-14 drop-shadow-xs overflow-visible" viewBox="0 0 80 60" fill="none">
-            {/* Paper Airplane Main Wing */}
-            <path d="M 72 8 L 8 32 L 40 48 L 72 8 Z" fill="#FFB3C1" stroke="#2B1A1D" strokeWidth="2.2" strokeLinejoin="round" />
-            {/* Under fold shadow */}
-            <path d="M 40 48 L 72 8 L 30 30 Z" fill="#FF758F" stroke="#2B1A1D" strokeWidth="2.2" strokeLinejoin="round" />
-            {/* Center Fold Line */}
-            <path d="M 8 32 L 72 8" stroke="#2B1A1D" strokeWidth="1.8" />
-            {/* Bottom Flap */}
-            <path d="M 40 48 L 50 56 L 54 38 Z" fill="#FF4D79" stroke="#2B1A1D" strokeWidth="2" strokeLinejoin="round" />
-          </svg>
-        </motion.div>
-
-        {/* Dashed Flight Trail & Heart */}
-        <svg className="absolute -top-4 -right-5 w-20 h-14 sm:w-28 sm:h-18 pointer-events-none overflow-visible -z-10" viewBox="0 0 120 70" fill="none">
-          <motion.path
-            d="M 55 42 C 85 42 108 24 95 10 C 80 -2 62 16 78 26 C 94 36 114 18 108 6"
-            stroke="#2B1A1D"
-            strokeWidth="1.8"
-            strokeDasharray="4 4"
-            strokeLinecap="round"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 1.5, delay: 0.4 }}
-          />
-          {/* Heart Outline at Trail End */}
-          <path
-            d="M 110 6 C 108 2 104 3 105 6 C 106 9 110 12 110 12 C 110 12 114 9 115 6 C 116 3 112 2 110 6 Z"
-            fill="none"
-            stroke="#2B1A1D"
-            strokeWidth="1.6"
-          />
-        </svg>
-      </div>
-    </div>
-  );
-};
-
-// Animated Handwriting Text Paragraph (Slowed down for relaxed reading)
-const HandwritingParagraph = ({ text, delay = 0, isHeader = false, isFooter = false }) => {
-  const words = text.split(" ");
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: delay,
-        staggerChildren: 0.11, // 110ms per word for deliberate handwriting speed
-      },
-    },
-  };
-
-  const wordVariants = {
-    hidden: {
-      opacity: 0,
-      y: 8,
-      filter: 'blur(4px)',
-      scale: 0.92,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      scale: 1,
-      transition: {
-        duration: 0.45,
-        ease: [0.25, 1, 0.5, 1],
-      },
-    },
-  };
-
-  return (
-    <motion.p
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className={`font-handwriting leading-relaxed sm:leading-[2.4rem] tracking-wide ${isHeader
-          ? 'text-[#FF4D79] font-bold text-xl xs:text-2xl sm:text-3xl pb-1'
-          : isFooter
-            ? 'text-[#FF4D79] font-semibold pt-2 text-xl xs:text-2xl sm:text-3xl'
-            : 'text-[#3D342F] text-base xs:text-xl sm:text-2xl'
-        }`}
-    >
-      {words.map((word, i) => (
-        <motion.span
           key={i}
-          variants={wordVariants}
-          className="inline-block mr-[0.25em] whitespace-nowrap"
+          className={`absolute ${h.size}`}
+          style={{ top: h.top, bottom: h.bottom, left: h.left, right: h.right }}
+          animate={{
+            y: [-4, 4, -4],
+            rotate: [h.rot, h.rot + 5, h.rot],
+            scale: [1, 1.06, 1],
+          }}
+          transition={{
+            duration: h.dur,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: h.delay,
+          }}
         >
-          {word}
-        </motion.span>
+          <svg viewBox="0 0 40 40" fill="none" className="w-full h-full drop-shadow-xs">
+            <path
+              d="M 20 34 C 10 26 4 19 4 11 C 4 5.5 8.5 2 14 2 C 17.5 2 19.5 4 20 5 C 20.5 4 22.5 2 26 2 C 31.5 2 36 5.5 36 11 C 36 19 30 26 20 34 Z"
+              fill="#FFA8B8"
+              stroke="#3B131E"
+              strokeWidth="3.2"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M 10 9 C 9 12 11 15 13 16"
+              stroke="#FFFFFF"
+              strokeWidth="2"
+              strokeLinecap="round"
+              fill="none"
+              opacity="0.85"
+            />
+          </svg>
+        </motion.div>
       ))}
-    </motion.p>
+    </div>
   );
 };
 
-// Floating Shimmering Crystal Sparkles & Prisms Background Effect
+// Shimmering Floating Crystal Background Effect (positioned safely away from text)
 const CrystalEffectBackground = () => {
   const crystals = [
-    { top: '6%', left: '6%', size: 'w-7 h-7 sm:w-10 sm:h-10', color: '#FFB3C1', delay: 0, dur: 4 },
-    { top: '12%', right: '8%', size: 'w-6 h-6 sm:w-9 sm:h-9', color: '#FF85A1', delay: 0.5, dur: 3.5 },
-    { top: '38%', left: '3%', size: 'w-8 h-8 sm:w-11 sm:h-11', color: '#E8A5A5', delay: 1, dur: 4.5 },
-    { top: '48%', right: '4%', size: 'w-7 h-7 sm:w-10 sm:h-10', color: '#FF758F', delay: 0.3, dur: 3.8 },
-    { top: '72%', left: '10%', size: 'w-6 h-6 sm:w-8 sm:h-8', color: '#FFD1DC', delay: 0.8, dur: 4.2 },
-    { top: '78%', right: '10%', size: 'w-8 h-8 sm:w-10 sm:h-10', color: '#FF4D79', delay: 1.2, dur: 3.6 },
+    { top: '3%', left: '3%', size: 'w-5 h-5 sm:w-7 sm:h-7', color: '#FFB3C1', delay: 0, dur: 4 },
+    { top: '4%', right: '4%', size: 'w-5 h-5 sm:w-7 sm:h-7', color: '#FF85A1', delay: 0.5, dur: 3.5 },
+    { top: '45%', left: '2%', size: 'w-5 h-5 sm:w-8 sm:h-8', color: '#E8A5A5', delay: 1, dur: 4.5 },
+    { top: '55%', right: '2%', size: 'w-5 h-5 sm:w-8 sm:h-8', color: '#FF758F', delay: 0.3, dur: 3.8 },
+    { top: '82%', left: '3%', size: 'w-5 h-5 sm:w-7 sm:h-7', color: '#FFD1DC', delay: 0.8, dur: 4.2 },
+    { top: '85%', right: '3%', size: 'w-5 h-5 sm:w-7 sm:h-7', color: '#FF4D79', delay: 1.2, dur: 3.6 },
   ];
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-      {/* Iridescent Crystal Radial Light Glow */}
       <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] opacity-60 rounded-full blur-3xl pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] opacity-35 rounded-full blur-3xl pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(255,182,193,0.45) 0%, rgba(255,228,230,0.3) 45%, rgba(255,255,255,0) 75%)',
+          background: 'radial-gradient(circle, rgba(255,182,193,0.35) 0%, rgba(255,228,230,0.2) 50%, rgba(255,255,255,0) 80%)',
         }}
       />
-
-      {/* Floating Crystal Diamond Gems & Starbursts */}
       {crystals.map((c, i) => (
         <motion.div
           key={i}
           className={`absolute ${c.size}`}
           style={{ top: c.top, left: c.left, right: c.right }}
           animate={{
-            y: [-10, 10, -10],
-            rotate: [0, 12, -12, 0],
-            scale: [0.9, 1.12, 0.9],
-            opacity: [0.65, 1, 0.65],
+            y: [-6, 6, -6],
+            rotate: [0, 8, -8, 0],
+            scale: [0.92, 1.06, 0.92],
+            opacity: [0.5, 0.85, 0.5],
           }}
           transition={{
             duration: c.dur,
@@ -192,45 +94,14 @@ const CrystalEffectBackground = () => {
             delay: c.delay,
           }}
         >
-          <svg viewBox="0 0 40 40" fill="none" className="w-full h-full drop-shadow-md">
-            {/* 3D Crystal Diamond Facets */}
+          <svg viewBox="0 0 40 40" fill="none" className="w-full h-full drop-shadow-xs">
             <polygon points="20,2 34,14 20,38 6,14" fill={c.color} opacity="0.85" />
             <polygon points="20,2 34,14 20,16 6,14" fill="#FFFFFF" opacity="0.6" />
             <polygon points="20,16 34,14 20,38" fill={c.color} opacity="0.95" />
             <polygon points="20,16 6,14 20,38" fill="#FFF0F5" opacity="0.75" />
-            {/* Outline & Creases */}
-            <polygon points="20,2 34,14 20,38 6,14" stroke="#2B1A1D" strokeWidth="1.5" strokeLinejoin="round" />
-            <line x1="6" y1="14" x2="34" y2="14" stroke="#2B1A1D" strokeWidth="1.2" />
-            <line x1="20" y1="16" x2="20" y2="38" stroke="#2B1A1D" strokeWidth="1.2" />
-          </svg>
-        </motion.div>
-      ))}
-
-      {/* Sparkling Twinkle Lights */}
-      {[
-        { top: '22%', left: '16%', size: 'w-4 h-4 sm:w-6 sm:h-6', delay: 0 },
-        { top: '28%', right: '18%', size: 'w-5 h-5 sm:w-7 sm:h-7', delay: 0.7 },
-        { top: '64%', left: '20%', size: 'w-4 h-4 sm:w-6 sm:h-6', delay: 0.4 },
-        { top: '72%', right: '16%', size: 'w-5 h-5 sm:w-7 sm:h-7', delay: 1.1 },
-      ].map((s, idx) => (
-        <motion.div
-          key={`sparkle-${idx}`}
-          className={`absolute ${s.size} text-[#FF6584]`}
-          style={{ top: s.top, left: s.left, right: s.right }}
-          animate={{
-            scale: [0, 1.3, 0],
-            rotate: [0, 90, 180],
-            opacity: [0, 0.9, 0],
-          }}
-          transition={{
-            duration: 2.8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            delay: s.delay,
-          }}
-        >
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+            <polygon points="20,2 34,14 20,38 6,14" stroke="#3B131E" strokeWidth="1.4" strokeLinejoin="round" />
+            <line x1="6" y1="14" x2="34" y2="14" stroke="#3B131E" strokeWidth="1" />
+            <line x1="20" y1="16" x2="20" y2="38" stroke="#3B131E" strokeWidth="1" />
           </svg>
         </motion.div>
       ))}
@@ -238,27 +109,181 @@ const CrystalEffectBackground = () => {
   );
 };
 
-export const InteractiveLetter = ({ letter }) => {
-  const [isOpen, setIsOpen] = useState(false);
+// Distinct aesthetic cards data generator
+const createCardPages = (letter) => {
+  const p = letter?.body || [];
+  return [
+    {
+      id: 'item-1',
+      number: 1,
+      color: '#FFF8EA', // Warm Cream
+      accentColor: '#EAB308',
+      tapeColor: 'rgba(255, 182, 193, 0.9)',
+      tapePattern: 'linear-gradient(45deg, rgba(244,63,94,0.3) 25%, transparent 25%, transparent 50%, rgba(244,63,94,0.3) 50%, rgba(244,63,94,0.3) 75%, transparent 75%)',
+      greeting: p[0] || "Dearest Sophia,",
+      content: p[1] ? `${p[1]}\n\n${p[2] || ""}` : "Happy Birthday to my favorite human on this planet! 🌸\n\nI was thinking about our friendship while putting this together, and I honestly couldn't stop smiling.",
+      stickerType: 'bow',
+    },
+    {
+      id: 'item-2',
+      number: 2,
+      color: '#FFEBF0', // Soft Pastel Pink
+      accentColor: '#F43F5E',
+      tapeColor: 'rgba(167, 243, 208, 0.9)',
+      tapePattern: 'radial-gradient(circle, rgba(16,185,129,0.35) 20%, transparent 20%)',
+      content: p[2] || "Finding a true friend like you — someone who listens without judgment, laughs at the same dumb jokes, supports every silly idea, and shows up through thick and thin — is something I will never take for granted.",
+      stickerType: 'cherries',
+    },
+    {
+      id: 'item-3',
+      number: 3,
+      color: '#F2F9F2', // Matcha Mint Pale
+      accentColor: '#10B981',
+      tapeColor: 'rgba(254, 215, 170, 0.9)',
+      tapePattern: 'repeating-linear-gradient(90deg, transparent, transparent 6px, rgba(249,115,22,0.3) 6px, rgba(249,115,22,0.3) 8px)',
+      content: p[3] || "Thank you for all the random phone calls, the unhinged late-night chats, the comfortable silences, and all the memories we've built so far. You bring so much light, comfort, and joy into my life.",
+      stickerType: 'quote',
+    },
+    {
+      id: 'item-4',
+      number: 4,
+      color: '#F7F2FF', // Lavender Pale
+      accentColor: '#8B5CF6',
+      tapeColor: 'rgba(253, 186, 116, 0.9)',
+      tapePattern: 'linear-gradient(135deg, rgba(139,92,246,0.3) 25%, transparent 25%, transparent 50%, rgba(139,92,246,0.3) 50%)',
+      content: p[4] || "I hope this year brings you everything your sweet heart desires: endless happiness, soft quiet moments, spontaneous adventures, and all the success you deserve.",
+      stickerType: 'sparkle',
+    },
+    {
+      id: 'item-5',
+      number: 5,
+      color: '#FFF2E8', // Apricot Peach Pale
+      accentColor: '#EA580C',
+      tapeColor: 'rgba(254, 205, 211, 0.9)',
+      tapePattern: 'radial-gradient(circle, rgba(225,29,72,0.3) 15%, transparent 15%)',
+      content: `${p[5] || "Thank you for being my rock, my partner in chaos, and my truest best friend."}\n\n${p[6] || "With all my love ♡"}`,
+      stickerType: 'kiss',
+    }
+  ];
+};
 
-  // Calculate cumulative delay so each paragraph writes out sequentially in relaxed handwriting speed
-  let runningDelay = 0.5;
-  const paragraphDelays = letter.body.map((p) => {
-    const delay = runningDelay;
-    const wordCount = p.split(' ').length;
-    runningDelay += wordCount * 0.11 + 0.5; // time for words to write + relaxed pause between paragraphs
-    return delay;
-  });
+export const InteractiveLetter = ({ letter }) => {
+  const containerRef = useRef(null);
+  const cardsData = createCardPages(letter);
+
+  // Key counter to force clean Framer Motion drag coordinate reset
+  const [resetKey, setResetKey] = useState(0);
+
+  // Highest z-index tracking for active card elevations
+  const [topZ, setTopZ] = useState(50);
+  const [hoveredCardId, setHoveredCardId] = useState(null);
+
+  // Initial neatly stacked state inside the envelope (stacked in order: 1 at front, 5 at back)
+  const [cardsState, setCardsState] = useState(() =>
+    cardsData.map((card, i) => ({
+      id: card.id,
+      isPicked: false,
+      zIndex: cardsData.length - i,
+      x: 0,
+      y: 0,
+      rotation: 0,
+    }))
+  );
+
+  // Pick a single card out of the letter box
+  const pickCard = (cardId) => {
+    setTopZ((prevZ) => {
+      const nextZ = prevZ + 1;
+      setCardsState((curr) => {
+        return curr.map((c, i) => {
+          if (c.id === cardId) {
+            const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+            const targetX = (i - 2) * (isMobile ? 24 : 50);
+            const targetY = isMobile ? -140 - (i % 2 === 0 ? 15 : 0) : -190 - (i % 2 === 0 ? 20 : 0);
+            return {
+              ...c,
+              isPicked: true,
+              zIndex: nextZ,
+              x: c.isPicked ? c.x : targetX,
+              y: c.isPicked ? c.y : targetY,
+              rotation: (i - 2) * 2.5,
+            };
+          }
+          return c;
+        });
+      });
+      return nextZ;
+    });
+  };
+
+  // Bring clicked/dragged card directly to the top layer
+  const bringToTop = (cardId) => {
+    setTopZ((prevZ) => {
+      const nextZ = prevZ + 1;
+      setCardsState((curr) =>
+        curr.map((c) => (c.id === cardId ? { ...c, isPicked: true, zIndex: nextZ } : c))
+      );
+      return nextZ;
+    });
+  };
+
+  // Open Letter Box & Draw all cards out at once with confetti
+  const handleOpenLetter = () => {
+    confetti({
+      particleCount: 60,
+      spread: 70,
+      origin: { y: 0.65 },
+      colors: ['#FF85A1', '#FFD166', '#06D6A0', '#118AB2', '#FF4D79']
+    });
+
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+
+    setTopZ((prevZ) => {
+      const nextZ = prevZ + 10;
+      setCardsState((curr) =>
+        curr.map((c, i) => ({
+          ...c,
+          isPicked: true,
+          zIndex: nextZ + (cardsData.length - i),
+          x: (i - 2) * (isMobile ? 26 : 55),
+          y: isMobile ? -145 - (i % 2 === 0 ? 20 : 0) : -195 - (i % 2 === 0 ? 25 : 0),
+          rotation: (i - 2) * 3,
+        }))
+      );
+      return nextZ + 10;
+    });
+  };
+
+  // Return all cards back into the neatly organized envelope stack
+  const handleResetToBox = () => {
+    // Increment resetKey to force Framer Motion to unbind dragged transforms
+    setResetKey((prev) => prev + 1);
+    setTopZ(50);
+    setCardsState(
+      cardsData.map((card, i) => ({
+        id: card.id,
+        isPicked: false,
+        zIndex: cardsData.length - i,
+        x: 0,
+        y: 0,
+        rotation: 0,
+      }))
+    );
+  };
+
+  const hasAnyPicked = cardsState.some((c) => c.isPicked);
 
   return (
-    <div className="w-full max-w-3xl mx-auto py-1 xs:py-2 sm:py-4 px-1.5 xs:px-3 sm:px-6 my-auto flex flex-col items-center justify-center">
-
+    <div 
+      ref={containerRef}
+      className="w-full max-w-4xl mx-auto py-1 xs:py-2 sm:py-6 px-1 xs:px-2 sm:px-6 my-auto flex flex-col items-center justify-center relative select-none"
+    >
       {/* Outer Gingham Framed Container */}
       <motion.div
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="relative rounded-[2rem] sm:rounded-[2.5rem] p-3 xs:p-5 sm:p-8 border-3 sm:border-4 border-[#2B1A1D] shadow-xl overflow-hidden"
+        className="w-full relative rounded-[1.8rem] xs:rounded-[2.2rem] sm:rounded-[2.5rem] p-2 xs:p-4 sm:p-8 pt-4 xs:pt-6 sm:pt-8 border-3 sm:border-4 border-[#3B131E] shadow-2xl overflow-visible"
         style={{
           backgroundColor: '#FFEBF0',
           backgroundImage: `
@@ -268,142 +293,314 @@ export const InteractiveLetter = ({ letter }) => {
           backgroundSize: '36px 36px',
         }}
       >
-        {/* Animated Shimmering Crystal Sparkles & Prisms Effect Layer */}
+        {/* Crystal Sparkles Background */}
         <CrystalEffectBackground />
 
-        {/* Floating Sparkles Background Accents */}
-        <div className="absolute top-4 left-6 text-[#FFC72C] text-sm animate-pulse z-10">✦</div>
-        <div className="absolute top-10 right-12 text-[#FF85A1] text-xs font-handwriting z-10">✨</div>
-        <div className="absolute bottom-16 left-8 text-[#FF4D79] text-xs z-10">✧</div>
-
-        {/* Header Title */}
-        <div className="text-center mb-3 sm:mb-6 relative z-10">
-          <h2 className="font-handwriting text-2xl xs:text-3xl sm:text-5xl font-bold text-[#2B1A1D] drop-shadow-xs flex items-center justify-center gap-2">
+        {/* Header Title with Clean Proportions */}
+        <div className="text-center mb-1 xs:mb-2 sm:mb-4 relative z-10 px-3 pt-1">
+          <h2 className="font-handwriting text-2xl xs:text-3xl sm:text-5xl font-bold text-[#3B131E] drop-shadow-xs flex items-center justify-center gap-1.5 leading-tight">
             <span>{letter.title}</span>
           </h2>
+          <p className="font-handwriting text-xs xs:text-sm sm:text-base text-[#8C7A6B] mt-0.5">
+            ✨ Tap envelope or drag each card to read! ♡
+          </p>
         </div>
 
-        {/* Interactive Envelope & Letter Card Assembly */}
-        <div className="relative max-w-xl mx-auto flex flex-col items-center">
+        {/* ================= UNIFIED PHYSICAL PINK ENVELOPE DESK ================= */}
+        <div className="relative w-full min-h-[460px] xs:min-h-[500px] sm:min-h-[580px] flex flex-col items-center justify-end pb-2 sm:pb-4 pt-6 sm:pt-10 overflow-visible">
 
-          {/* Main Pink Stitched Letter Card Frame */}
-          <motion.div
-            layout
-            animate={{
-              y: isOpen ? 0 : 30,
-              scale: isOpen ? 1 : 0.96,
-            }}
-            transition={{ type: "spring", damping: 22, stiffness: 220 }}
-            className="w-full bg-[#FFF2F5] rounded-[1.8rem] xs:rounded-[2.2rem] sm:rounded-[2.5rem] p-4 xs:p-6 sm:p-10 border-3 sm:border-4 border-[#2B1A1D] shadow-lg relative z-20 overflow-hidden"
-          >
-            {/* Inner Dashed Stitch Frame (matching reference image) */}
-            <div className="absolute inset-2 xs:inset-3 sm:inset-4 border-2 border-dashed border-[#FFB3C1] rounded-[1.3rem] xs:rounded-[1.7rem] sm:rounded-[2rem] pointer-events-none z-10" />
+          {/* Main Pink Envelope Container */}
+          <div className="relative w-full max-w-[290px] xs:max-w-[340px] sm:max-w-[430px] flex flex-col items-center z-10">
 
-            {/* Top Right Animated Paper Airplane */}
-            <PaperAirplane />
+            {/* Floating Doodle Hearts around the Envelope */}
+            <FloatingDoodleHearts />
 
-            {/* Teaser View (When Closed) */}
-            {!isOpen && (
-              <div className="py-6 xs:py-8 sm:py-12 text-center space-y-4 xs:space-y-6 relative z-20">
-                <p className="font-handwriting text-xl xs:text-2xl sm:text-3xl text-[#52463F] italic leading-relaxed px-3 max-w-md mx-auto">
-                  "{letter.teaser}"
-                </p>
+            {/* 1. BACK OPEN TRIANGULAR FLAP (Z-INDEX 0) */}
+            <div className="w-full relative z-0 flex justify-center -mb-2 overflow-visible pointer-events-none">
+              <svg 
+                viewBox="0 0 460 210" 
+                className="w-full h-auto drop-shadow-xs overflow-visible" 
+                fill="none"
+              >
+                <path
+                  d="M 20 200 L 210 20 C 220 8 240 8 250 20 L 440 200 Z"
+                  fill="#FFAEC0"
+                  stroke="#3B131E"
+                  strokeWidth="3.8"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M 40 200 L 215 35 C 222 26 238 26 245 35 L 420 200 Z"
+                  fill="#FF9EAF"
+                  opacity="0.4"
+                />
+              </svg>
+            </div>
 
-                <motion.button
-                  onClick={() => setIsOpen(true)}
-                  whileHover={{ scale: 1.06, rotate: 1 }}
-                  whileTap={{ scale: 0.94 }}
-                  className="px-6 py-3 xs:px-8 xs:py-3.5 bg-[#FF4D79] hover:bg-[#E63963] text-white rounded-full font-handwriting text-xl xs:text-2xl font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-2.5 mx-auto cursor-pointer border-2 border-white touch-manipulation ring-2 ring-[#FF758F]/40"
-                >
-                  <Mail className="w-5 h-5 sm:w-6 sm:h-6" />
-                  <span>Open Letter</span>
-                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
-                </motion.button>
-              </div>
-            )}
+            {/* 2. INNER ENVELOPE CAVITY (Z-INDEX 0) */}
+            <div className="absolute inset-x-0 bottom-0 top-12 xs:top-14 sm:top-16 bg-[#FFA2B6] rounded-[1.6rem] xs:rounded-[2rem] border-3 sm:border-4 border-[#3B131E] shadow-inner pointer-events-none z-0" />
 
-            {/* Unfolded Letter Content with Sequential Handwriting Animation */}
-            <AnimatePresence>
-              {isOpen && (
+            {/* 3. NEATLY ORGANIZED INTERACTIVE CARDS */}
+            {cardsData.map((card, idx) => {
+              const state = cardsState.find((c) => c.id === card.id) || {
+                isPicked: false,
+                zIndex: cardsData.length - idx,
+                x: 0,
+                y: 0,
+                rotation: 0,
+              };
+
+              const restingY = (cardsData.length - 1 - idx) * 8;
+              const isHovered = hoveredCardId === card.id && !state.isPicked;
+
+              return (
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="space-y-3 sm:space-y-5 relative z-20 pt-2 pb-2"
+                  key={`${card.id}-${resetKey}`}
+                  drag
+                  dragConstraints={containerRef}
+                  dragElastic={0.15}
+                  dragMomentum={true}
+                  onDragStart={() => bringToTop(card.id)}
+                  onPointerDown={() => bringToTop(card.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (!state.isPicked) {
+                      pickCard(card.id);
+                    } else {
+                      bringToTop(card.id);
+                    }
+                  }}
+                  onMouseEnter={() => setHoveredCardId(card.id)}
+                  onMouseLeave={() => setHoveredCardId(null)}
+                  animate={
+                    state.isPicked
+                      ? {
+                          x: state.x,
+                          y: state.y,
+                          rotate: state.rotation,
+                          scale: 1,
+                          zIndex: state.zIndex,
+                          boxShadow: '0 16px 30px -6px rgba(59,19,30,0.22)',
+                        }
+                      : {
+                          x: 0,
+                          y: isHovered ? -restingY - 22 : -restingY,
+                          rotate: 0,
+                          scale: isHovered ? 1.02 : 1,
+                          zIndex: state.zIndex,
+                          boxShadow: '0 4px 10px -2px rgba(59,19,30,0.12)',
+                        }
+                  }
+                  transition={{
+                    type: 'spring',
+                    damping: 20,
+                    stiffness: 200,
+                  }}
+                  whileHover={{
+                    cursor: state.isPicked ? 'grab' : 'pointer',
+                    scale: state.isPicked ? 1.02 : 1.04,
+                  }}
+                  whileDrag={{
+                    scale: 1.05,
+                    rotate: 0,
+                    zIndex: 999,
+                    cursor: 'grabbing',
+                    boxShadow: '0 24px 40px -10px rgba(59,19,30,0.32)',
+                  }}
+                  className={`absolute bottom-6 xs:bottom-8 sm:bottom-10 w-[82vw] max-w-[240px] xs:max-w-[280px] sm:max-w-[340px] rounded-xl xs:rounded-2xl p-3 xs:p-4 sm:p-5 pt-5 xs:pt-6 sm:pt-7 border-2 sm:border-3 border-[#3B131E] select-none touch-none origin-bottom cursor-pointer ${
+                    !state.isPicked ? 'h-[140px] xs:h-[160px] sm:h-[180px] overflow-hidden' : 'h-auto'
+                  }`}
+                  style={{
+                    backgroundColor: card.color,
+                    zIndex: state.zIndex,
+                  }}
                 >
-                  {letter.body.map((paragraph, idx) => (
-                    <HandwritingParagraph
-                      key={idx}
-                      text={paragraph}
-                      delay={paragraphDelays[idx]}
-                      isHeader={idx === 0}
-                      isFooter={idx === letter.body.length - 1}
-                    />
-                  ))}
+                  {/* Washi Tape Effect at Top Center */}
+                  <div 
+                    className="absolute -top-3 left-1/2 -translate-x-1/2 w-18 xs:w-22 sm:w-28 h-5 xs:h-6 sm:h-7 rounded-xs shadow-xs border-x border-black/15 pointer-events-none z-30"
+                    style={{
+                      backgroundColor: card.tapeColor,
+                      backgroundImage: card.tapePattern,
+                      backgroundSize: '12px 12px',
+                    }}
+                  />
 
-
-                  {/* Fold Back Up Action Button */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: runningDelay + 0.3 }}
-                    className="text-center pt-2 sm:pt-4"
-                  >
-                    <motion.button
-                      onClick={() => setIsOpen(false)}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="inline-flex items-center gap-1.5 font-marker text-xs xs:text-sm text-[#8C7A6B] hover:text-[#FF4D79] cursor-pointer p-1.5 touch-manipulation bg-white/70 rounded-full px-4 border border-[#FFCCD5]"
+                  {/* Single pull hint on the front card only */}
+                  {!state.isPicked && idx === 0 && (
+                    <motion.div
+                      animate={{ y: [0, -3, 0] }}
+                      transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+                      className="absolute -top-6 right-2 bg-white/95 px-2 py-0.5 rounded-full border border-[#3B131E] text-[9px] xs:text-[10px] font-handwriting font-bold text-[#FF4D79] shadow-xs pointer-events-none"
                     >
-                      <ChevronUp className="w-4 h-4" />
-                      <span>(Fold letter back into envelope ♡)</span>
-                    </motion.button>
-                  </motion.div>
+                      👆 pull me
+                    </motion.div>
+                  )}
+
+                  {/* Optional Greeting on Card 1 */}
+                  {card.greeting && (
+                    <div className="font-handwriting font-bold text-sm xs:text-base sm:text-xl text-[#FF4D79] mb-1 relative z-20">
+                      {card.greeting}
+                    </div>
+                  )}
+
+                  {/* Card Body Text */}
+                  <div className="relative z-20 py-0.5 font-handwriting text-xs xs:text-sm sm:text-base text-[#3B131E] leading-relaxed xs:leading-snug sm:leading-[1.7rem] whitespace-pre-line">
+                    {card.content}
+                  </div>
+
+                  {/* Bottom Footer with Cute Stickers */}
+                  <div className="mt-2 xs:mt-3 pt-1.5 border-t border-[#3B131E]/10 flex items-center justify-between relative z-20">
+                    <div className="flex items-center gap-1.5">
+                      {card.stickerType === 'bow' && <BowSticker className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7" />}
+                      {card.stickerType === 'cherries' && <CherrySticker className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7" />}
+                      {card.stickerType === 'kiss' && <KissSticker className="w-5 h-4 xs:w-6 xs:h-5 sm:w-7 sm:h-5" />}
+                      {card.stickerType === 'sparkle' && (
+                        <div className="flex items-center gap-1 text-amber-500 font-handwriting text-xs sm:text-sm">
+                          <span>✨🎂✨</span>
+                        </div>
+                      )}
+                      {card.stickerType === 'quote' && (
+                        <span className="text-emerald-600 font-handwriting text-[10px] xs:text-xs font-bold bg-white/70 px-1.5 py-0.5 rounded-full border border-emerald-300">
+                          ☕ Cozy vibes
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="font-cursive text-xs text-[#8C7A6B]">
+                      ♡
+                    </div>
+                  </div>
+
+                  {/* Dog-eared Folded Paper Corner (Bottom Right) */}
+                  <div 
+                    className="absolute bottom-0 right-0 w-4 xs:w-5 sm:w-6 h-4 xs:h-5 sm:h-6 pointer-events-none rounded-br-xl sm:rounded-br-2xl overflow-hidden"
+                    style={{
+                      background: `linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.08) 100%)`,
+                    }}
+                  />
+                  <div 
+                    className="absolute bottom-0 right-0 w-3 xs:w-3.5 sm:w-4 h-3 xs:h-3.5 sm:h-4 pointer-events-none"
+                    style={{
+                      background: `linear-gradient(135deg, transparent 50%, rgba(255,255,255,0.7) 50%)`,
+                      borderTopLeftRadius: '2px',
+                    }}
+                  />
                 </motion.div>
-              )}
-            </AnimatePresence>
+              );
+            })}
 
-          </motion.div>
+            {/* 4. ENVELOPE FRONT POCKET (CLICKABLE TO OPEN) */}
+            <div 
+              onClick={handleOpenLetter}
+              className="relative w-full z-25 cursor-pointer group select-none"
+              title="Click to open envelope ✨"
+            >
+              <svg
+                viewBox="0 0 460 270"
+                className="w-full h-auto drop-shadow-xl overflow-visible pointer-events-none"
+                fill="none"
+              >
+                {/* Main Envelope Front Body */}
+                <path
+                  d="M 15 10 C 15 10 10 240 25 255 C 38 268 420 268 435 255 C 450 240 445 10 445 10 Z"
+                  fill="#FFB6C1"
+                  stroke="#3B131E"
+                  strokeWidth="3.8"
+                  strokeLinejoin="round"
+                />
 
-          {/* Yellow Cream Envelope Front Pocket (Matching reference frame) */}
-          <div className="relative w-[96%] xs:w-[98%] -mt-10 sm:-mt-14 z-30 pointer-events-auto">
-            <div className="bg-[#FFF4CB] rounded-b-[1.8rem] xs:rounded-b-[2.2rem] sm:rounded-b-[2.5rem] border-3 sm:border-4 border-[#2B1A1D] shadow-xl pt-8 xs:pt-10 sm:pt-14 pb-4 xs:pb-5 sm:pb-6 relative overflow-visible">
+                {/* Left Triangular Fold Line */}
+                <path
+                  d="M 15 10 L 230 160 L 25 255"
+                  fill="#FFAEC0"
+                  stroke="#3B131E"
+                  strokeWidth="3.4"
+                  strokeLinejoin="round"
+                />
 
-              {/* Envelope Triangular Top Fold Cutout */}
-              <svg className="absolute -top-6 xs:-top-8 sm:-top-12 inset-x-0 w-full h-8 xs:h-10 sm:h-14 overflow-visible pointer-events-none" viewBox="0 0 400 60" preserveAspectRatio="none">
-                {/* Envelope V Flap */}
-                <path d="M 0 0 L 200 50 L 400 0" fill="#FFF4CB" stroke="#2B1A1D" strokeWidth="4" strokeLinejoin="round" />
+                {/* Right Triangular Fold Line */}
+                <path
+                  d="M 445 10 L 230 160 L 435 255"
+                  fill="#FFA4B8"
+                  stroke="#3B131E"
+                  strokeWidth="3.4"
+                  strokeLinejoin="round"
+                />
+
+                {/* Bottom Triangular Fold Layer */}
+                <path
+                  d="M 25 255 L 230 135 L 435 255 Z"
+                  fill="#FFBAC6"
+                  stroke="#3B131E"
+                  strokeWidth="3.4"
+                  strokeLinejoin="round"
+                />
               </svg>
 
-              {/* Pulsing Pink Heart Seal in Center V-Fold */}
+              {/* Center Cartoon Heart Seal */}
               <motion.button
-                onClick={() => setIsOpen(!isOpen)}
-                whileHover={{ scale: 1.18, rotate: 6 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleOpenLetter();
+                }}
+                whileHover={{ scale: 1.2, rotate: 6 }}
                 whileTap={{ scale: 0.9 }}
                 animate={{ scale: [1, 1.08, 1] }}
-                transition={{ scale: { duration: 2, repeat: Infinity, ease: "easeInOut" } }}
-                title={isOpen ? "Close envelope" : "Open envelope"}
-                className="absolute -top-4 xs:-top-5 sm:-top-7 left-1/2 -translate-x-1/2 z-40 w-11 h-11 xs:w-13 xs:h-13 sm:w-16 sm:h-16 bg-[#FF6584] hover:bg-[#FF4D79] text-white rounded-full shadow-lg border-3 sm:border-4 border-[#2B1A1D] flex items-center justify-center cursor-pointer group touch-manipulation"
+                transition={{ scale: { duration: 2, repeat: Infinity, ease: 'easeInOut' } }}
+                title="Tap to open letter ✨"
+                className="absolute top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 flex items-center justify-center cursor-pointer group touch-manipulation drop-shadow-md"
               >
-                <Heart className="w-6 h-6 xs:w-7 xs:h-7 sm:w-9 sm:h-9 fill-current text-white drop-shadow-xs group-hover:scale-110 transition-transform" />
+                <svg viewBox="0 0 50 50" fill="none" className="w-full h-full">
+                  <path
+                    d="M 25 44 C 12 34 5 25 5 15 C 5 7.5 11 3 18 3 C 22.5 3 24.5 5.5 25 7 C 25.5 5.5 27.5 3 32 3 C 39 3 45 7.5 45 15 C 45 25 38 34 25 44 Z"
+                    fill="#FF6584"
+                    stroke="#3B131E"
+                    strokeWidth="3.6"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M 12 13 C 11 17 14 21 16 22"
+                    stroke="#FFFFFF"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    fill="none"
+                    opacity="0.85"
+                  />
+                </svg>
               </motion.button>
 
-              {/* Animated Tulips on Bottom Left & Right Corners */}
-              <TulipGroup position="left" />
-              <TulipGroup position="right" />
-
-              {/* Sparkle Doodles on Envelope */}
-              <div className="flex items-center justify-center gap-6 text-[#2B1A1D]/40 text-xs sm:text-sm font-marker pt-2">
-                <span>✦</span>
-                <span className="font-handwriting text-sm xs:text-base sm:text-lg text-[#8C7A6B]">
-                  {isOpen ? "Tap heart to fold back" : "Tap heart seal to read ♡"}
+              {/* Hint underneath envelope */}
+              <div className="text-center pt-2 pb-0.5">
+                <span className="font-handwriting text-xs xs:text-sm sm:text-base text-[#8C7A6B] font-bold group-hover:text-[#FF4D79] transition-colors">
+                  {hasAnyPicked ? "Drag cards around freely ♡" : "✉️ Tap anywhere on envelope to open ♡"}
                 </span>
-                <span>✦</span>
               </div>
-
             </div>
+
           </div>
+
+          {/* Return all cards to envelope button (appears when cards are picked) */}
+          <AnimatePresence>
+            {hasAnyPicked && (
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 15 }}
+                className="mt-3 z-40"
+              >
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleResetToBox();
+                  }}
+                  className="inline-flex items-center gap-1.5 font-marker text-xs sm:text-sm text-[#3B131E] hover:text-[#FF4D79] bg-white/95 px-3.5 py-1.5 rounded-full border-2 border-[#3B131E] shadow-md cursor-pointer hover:scale-105 transition-transform"
+                >
+                  <RefreshCw className="w-3 h-3 xs:w-3.5 xs:h-3.5" />
+                  <span>Return all cards into envelope ✉️</span>
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
         </div>
 
@@ -412,4 +609,3 @@ export const InteractiveLetter = ({ letter }) => {
     </div>
   );
 };
-
